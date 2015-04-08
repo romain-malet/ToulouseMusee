@@ -1,10 +1,5 @@
 target
 *.iml
 .idea
-.classpath
-.project
 .settings
 target-eclipse
-
-.~lock*
-cobertura.ser
