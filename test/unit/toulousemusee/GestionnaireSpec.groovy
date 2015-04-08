@@ -19,10 +19,10 @@ class GestionnaireSpec extends Specification {
         gestionnaire.validate() == true
 
         where:
-        nom |
-        "roger" |
-        "Roger" |
-        "Anne-Marie" | 
+        nom
+        "roger"
+        "Roger"
+        "Anne-Marie"
     }
 
     @Unroll
