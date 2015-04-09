@@ -11,41 +11,46 @@ import spock.lang.Unroll;
 class MuseeSpec extends Specification {
 
 	@Unroll
-	void "test musée valide"(String nom, String horairesOuverture, String telephone, String accesBus, String accesMetro){
+	void "test musée valide"(String nom, String horairesOuverture, String telephone,
+		 String accesBus, String accesMetro) {
 		given: "Un musée est valide avec un nom, les horaires d'ouverture, un numéro de téléphone et les accès bus et metro"
-		Musee musee = new Musee(nom:nom, horairesOUvertures:horairesOuverture, telephone:telephone, accesBus:accesBus, accesMetro:accesMetro)
+		Musee musee = new Musee(nom: nom, horairesOuverture: horairesOuverture, telephone: telephone,
+				accesBus: accesBus, accesMetro: accesMetro, adresse: Mock(Adresse))
 
-		expect:"le musée est valide"
+		expect: "le musée est valide"
 		musee.validate() == true
 
 		where:
-		nom    | horairesOuverture | telephone    | accesBus | accesMetro
-		"nom"  | "9h 18h"          | "0514782314" | "Bus 63" | "A"
+		nom   | horairesOuverture | telephone        | accesBus | accesMetro
+		"nom" | "9h 18h"          | "0514782314"     | "Bus 63" | "A"
+		"nom" | "9h 18h"          | "05 14 78 23 14" | "Bus 63" | "A"
 	}
 
 	@Unroll
-	void "test musée invalide"(String nom, String horairesOuverture, String telephone, String accesBus, String accesMetro){
+	void "test musée invalide"(String nom, String horairesOuverture, String telephone,
+							   String accesBus, String accesMetro, Adresse adresse){
 		given: "Un musée est valide avec un nom, les horaires d'ouverture, un numéro de téléphone et les accès bus et metro"
 		Musee musee = new Musee(nom:nom, horairesOUvertures:horairesOuverture,
 			telephone:telephone, accesBus:accesBus, accesMetro:accesMetro,
-			adresse:Mock(Adresse))
+			adresse:adresse)
 
 		expect:"le musée est valide"
-		musee.validate() == true
+		musee.validate() == false
 
 		where:
-		nom    | horairesOuverture | telephone        | accesBus | accesMetro
-		null   | "9h 18h"          | "05 14 78 23 14" | "Bus 63" | "A"
-		""     | "9h 18h"          | "05 14 78 23 14" | "Bus 63" | "A"
-		"nom"  | null              | "05 14 78 23 14" | "Bus 63" | "A"
-		"nom"  | ""                | "05 14 78 23 14" | "Bus 63" | "A"
-		"nom"  | "9h 18h"          | ""               | "Bus 63" | "A"
-		"nom"  | "9h 18h"          | null             | "Bus 63" | "A"
-		"nom"  | "9h 18h"          | "un numéro"      | "Bus 63" | "A"
-		"nom"  | "9h 18h"          | "05 47 82 3"     | "Bus 63" | "A"
-		"nom"  | "9h 18h"          | "05 47 82 32 15" | null     | "A"
-		"nom"  | "9h 18h"          | "05 47 82 32 15" | ""       | "A"
-		"nom"  | "9h 18h"          | "05 47 82 32 15" | "Bus 63" | null
-		"nom"  | "9h 18h"          | "05 47 82 32 15" | "Bus 63" | ""
+		nom    | horairesOuverture | telephone        | accesBus | accesMetro | adresse
+		null   | "9h 18h"          | "05 14 78 23 14" | "Bus 63" | "A"        | Mock(Adresse)
+		""     | "9h 18h"          | "05 14 78 23 14" | "Bus 63" | "A"        | Mock(Adresse)
+		"nom"  | null              | "05 14 78 23 14" | "Bus 63" | "A"        | Mock(Adresse)
+		"nom"  | ""                | "05 14 78 23 14" | "Bus 63" | "A"        | Mock(Adresse)
+		"nom"  | "9h 18h"          | ""               | "Bus 63" | "A"        | Mock(Adresse)
+		"nom"  | "9h 18h"          | null             | "Bus 63" | "A"        | Mock(Adresse)
+		"nom"  | "9h 18h"          | "un numéro"      | "Bus 63" | "A"        | Mock(Adresse)
+		"nom"  | "9h 18h"          | "05 47 82 3"     | "Bus 63" | "A"        | Mock(Adresse)
+		"nom"  | "9h 18h"          | "05 47 82 32 15" | null     | "A"        | Mock(Adresse)
+		"nom"  | "9h 18h"          | "05 47 82 32 15" | ""       | "A"        | Mock(Adresse)
+		"nom"  | "9h 18h"          | "05 47 82 32 15" | "Bus 63" | null       | Mock(Adresse)
+		"nom"  | "9h 18h"          | "05 47 82 32 15" | "Bus 63" | ""         | Mock(Adresse)
+		"nom"  | "9h 18h"          | "05 47 82 32 15" | "Bus 63" | "A"        | null
 	}
 }
