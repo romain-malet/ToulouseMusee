@@ -19,7 +19,7 @@ class AdresseSpec extends Specification {
 
 		where:
 		rue | nomRue | codePostale | ville
-		21  | "nom"  | 31000       | "ville"
+		12  | "nom"  | 31000       | "ville"
 	}
 
     @Unroll
