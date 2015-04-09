@@ -12,6 +12,7 @@ class GestionnaireSpec extends Specification {
 
     @Unroll
     void "test la validité d'un gestionnaire valide"(String nom, def _) {
+
         given: "Un gestionnaire avec un nom"
         Gestionnaire gestionnaire = new Gestionnaire(name: nom)
 
@@ -27,6 +28,7 @@ class GestionnaireSpec extends Specification {
 
     @Unroll
     void "test l'invalidité d'un gestionnaire non valide"(String nom, def _) {
+
         given: "Un gestionnaire avec un nom"
         Gestionnaire gestionnaire = new Gestionnaire(name: nom)
 
