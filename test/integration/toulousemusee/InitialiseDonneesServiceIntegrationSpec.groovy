@@ -9,7 +9,7 @@ import spock.lang.*
  */
 class InitialiseDonneesServiceIntegrationSpec extends Specification {
 
-    InitialiseDonneesService initData
+    InitialiseDonneesService initialiseDonneesService
 
     void "test l'initialisation des données pour les musées et les gestionnaires"() {
 
@@ -18,7 +18,7 @@ class InitialiseDonneesServiceIntegrationSpec extends Specification {
         Gestionnaire.count() == 0;
 
         when: "on lance le service d'initialisation des données"
-        initData.initData()
+        initialiseDonneesService.initData()
 
         then: "il y a 12 musées et 4 gestionnaires"
         Musee.count() == 12
@@ -29,7 +29,7 @@ class InitialiseDonneesServiceIntegrationSpec extends Specification {
         Gestionnaire.count() == 4
 
         and: "relance l'initialisation"
-        initData.initData()
+        initialiseDonneesService.initData()
 
         then: "toujours 12 musées et 4 gestionnaires"
         Musee.count() == 12
