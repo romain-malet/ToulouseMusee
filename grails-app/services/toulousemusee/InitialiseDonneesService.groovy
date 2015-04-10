@@ -15,9 +15,12 @@ class InitialiseDonneesService {
             CSVReader csv = new CSVReader(new FileReader("grails-app/conf/musee.csv"), (char)';')
             String [] nextLine;
             csv.readNext()
-            while ((nextLine = csv.readNext()) != null) {
-                Gestionnaire unGestionnaire  = gestionnaireService.insertOrUpdate(new Gestionnaire(
-                        nom: nextLine[1]))
+            while ((nextLine = csv.readNext())) {
+                Gestionnaire unGestionnaire = Gestionnaire.findByName(nextLine[1])
+                if (!unGestionnaire) {
+                    unGestionnaire  = gestionnaireService.insertOrUpdate(new Gestionnaire(
+                            nom: nextLine[1]))
+                }
                 Adresse uneAdresse = adresseService.insertOrUpdate(new Adresse(
                         numero: nextLine[7],
                         rue: nextLine[8],
