@@ -11,45 +11,28 @@ class InitialiseDonneesServiceIntegrationSpec extends Specification {
 
     InitialiseDonneesService initData
 
-    void "test l'initialisation des gestionnaires"() {
+    void "test l'initialisation des données pour les musées et les gestionnaires"() {
 
-        given: "il n'y a aucun gestionnaire"
+        given: "il n'y a aucun musée ni gestionnaires"
+        Musee.count() == 0;
         Gestionnaire.count() == 0;
 
-        when: "on lance le service d'initialisation"
-        initData.initGestionnaires()
+        when: "on lance le service d'initialisation des données"
+        initData.initData()
 
-        then: "il y a 10 gestionnaires en base"
+        then: "il y a 12 musées et 4 gestionnaires"
+        Musee.count() == 12
         Gestionnaire.count() == 4
 
-        when: "déjà lancer l'initialisation"
+        when: "initialisation déjà faite"
+        Musee.count() == 12
         Gestionnaire.count() == 4
 
         and: "relance l'initialisation"
-        initData.initGestionnaires()
+        initData.initData()
 
-        then: "toujours 10 gestionnaires"
+        then: "toujours 12 musées et 4 gestionnaires"
+        Musee.count() == 12
         Gestionnaire.count() == 4
-    }
-
-    void "test l'initialisation des musées"() {
-
-        given: "il n'y a aucun musée"
-        Musee.count() == 0;
-
-        when: "on lance le service d'initialisation"
-        initData.initMusees()
-
-        then: "il y a N musées en base"
-        Musee.count() == 12
-
-        when: "déjà lancer l'initialisation"
-        Musee.count() == 12
-
-        and: "relance l'initialisation"
-        initData.initMusees()
-
-        then: "toujours N musées"
-        Musee.count() == 12
     }
 }
