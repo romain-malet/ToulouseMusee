@@ -12,21 +12,21 @@ class DemandeVisiteSpec extends Specification {
 
     @Unroll
     void "test la validité d'une demande valide"(int code, Date debut, Date fin,
-                                                 int nbPersonne, Musee unMusee) {
+                                                 int nbPersonne) {
 
-        given: "Une demande de visite avec un code, une date de début, une date de fin et un nombre de personne"
+        given: "Une demande de visite avec code, date de début, date de fin et nombre de personne"
         DemandeVisite demande = new DemandeVisite(code: code, dateDebutPeriode: debut, dateFinPeriode: fin,
-                nbPersonne: nbPersonne, musee: unMusee)
+                nbPersonne: nbPersonne, musee: Mock(Musee))
 
         expect: "Une demande de visite valide"
         demande.validate() == true
 
         where:
-        code | debut      | fin            | nbPersonne | unMusee
-        1    | new Date() | new Date() + 1 | 6          | Mock(Musee)
-        2    | new Date() | new Date() + 1 | 1          | Mock(Musee)
-        9    | new Date() | new Date() + 2 | 3          | Mock(Musee)
-        10   | new Date() | new Date() + 1 | 4          | Mock(Musee)
+        code | debut      | fin            | nbPersonne
+        1    | new Date() | new Date() + 1 | 6
+        2    | new Date() | new Date() + 1 | 1
+        9    | new Date() | new Date() + 2 | 3
+        10   | new Date() | new Date() + 1 | 4
     }
 
     @Unroll

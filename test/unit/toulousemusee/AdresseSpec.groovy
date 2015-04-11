@@ -9,33 +9,34 @@ import spock.lang.Unroll;
  */
 @TestFor(Adresse)
 class AdresseSpec extends Specification {
+
     @Unroll
-	void "test adresse valide"(int rue, String nomRue, int codePostale, String ville){
+	void "test adresse valide"(int numero, String nomRue, int codePostale, String ville){
 		given: "Une adresse avec un numéro de rue, le nom de la rue, le code postal et la vaille"
-		Adresse adresse = new Adresse(rue:rue, nomRue:nomRue, codePostale:codePostale, ville:ville)
+		Adresse adresse = new Adresse(numero: numero, rue: nomRue, codePostale: codePostale, ville: ville)
 
 		expect:"l'adresse est valide"
 		adresse.validate() == true
 
 		where:
-		rue | nomRue | codePostale | ville
-		12  | "nom"  | 31000       | "ville"
+        numero | nomRue | codePostale | ville
+		12     | "nom"  | 31000       | "ville"
 	}
 
     @Unroll
-	void "test adresse invalide"(int rue, String nomRue, int codePostale, String ville){
+	void "test adresse invalide"(int numero, String nomRue, int codePostale, String ville){
 		given: "Une adresse avec un numéro de rue, le nom de la rue, le code postal et la vaille"
-		Adresse adresse = new Adresse(rue:rue, nomRue:nomRue, codePostale:codePostale, ville:ville)
+		Adresse adresse = new Adresse(numero: numero, rue: nomRue, codePostale: codePostale, ville: ville)
 
 		expect:"l'adresse est valide"
 		adresse.validate() == false
 
 		where:
-		rue  | nomRue | codePostale | ville
-		-12  | null   | 300       | null
-		 12  | ""     | 300       | null
-		 12  | "Nom"  | 300       | null
-		 12  | "Nom"  | 3100      | null
-		 12  | "Nom"  | 3100      | ""
+        numero | nomRue | codePostale | ville
+		-12    | null   | 300         | null
+		 12    | ""     | 300         | null
+		 12    | "Nom"  | 300         | null
+		 12    | "Nom"  | 3100        | null
+		 12    | "Nom"  | 3100        | ""
 	}
 }
