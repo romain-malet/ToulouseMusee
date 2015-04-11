@@ -6,6 +6,7 @@ import grails.transaction.Transactional
 class MuseeService {
 
     Musee insertOrUpdate(Musee pMusee, Gestionnaire pGestionnaire) {
-
+        pGestionnaire.addToMusees(pMusee).save()
+        pMusee
     }
 }

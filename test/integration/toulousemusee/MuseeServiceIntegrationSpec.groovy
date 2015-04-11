@@ -19,6 +19,9 @@ class MuseeServiceIntegrationSpec extends Specification {
                 ville: "Toulouse"
         )
 
+        and: "un gestionnaire"
+        Gestionnaire unGestionnaire = new Gestionnaire(name: "le gestionnaire")
+
         and: "un musée"
         Musee unMusee = new Musee(
                 nom: "le musée",
@@ -28,9 +31,6 @@ class MuseeServiceIntegrationSpec extends Specification {
                 accesBus: "bus 45",
                 adresse: uneAdresse
         )
-
-        and: "un gestionnaire"
-        Gestionnaire unGestionnaire = new Gestionnaire(name: "le gestionnaire")
 
         when: "on insert le musée en base"
         Musee resMusee = museeService.insertOrUpdate(unMusee, unGestionnaire)
@@ -50,11 +50,14 @@ class MuseeServiceIntegrationSpec extends Specification {
         and: "il a pour gestionnaire le gestionnaire initial"
         resMusee.gestionnaire == unGestionnaire
 
-        and: "il a pour adresse l'adresse initiale"
-        resMusee.adresse == uneAdresse
+        and: "le gestionnaire est en base"
+        Gestionnaire.findById(resMusee.gestionnaireId) != null
 
         and: "le gestionnaire a le musée dans sa liste de musées"
         unGestionnaire.musees.contains(resMusee)
+
+        and: "il a pour adresse l'adresse initiale"
+        resMusee.adresse == uneAdresse
 
         and: "l'adresse existe effectivement en base"
         Adresse.findById(resMusee.adresseId)
