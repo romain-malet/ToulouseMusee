@@ -17,5 +17,7 @@ class Musee {
 		nom blank:false
 		horairesOuverture blank:false
 		telephone blank:false, matches:'0\\d\\s*\\d{2}\\s*\\d{2}\\s*\\d{2}\\s*\\d{2}'
+        accesBus nullable: true
+        accesMetro nullable: true
     }
 }

@@ -25,8 +25,8 @@ class MuseeSpec extends Specification {
 		nom   | horairesOuverture | telephone        | accesBus | accesMetro
 		"nom" | "9h 18h"          | "0514782314"     | "Bus 63" | "A"
 		"nom" | "9h 18h"          | "05 14 78 23 14" | "Bus 63" | "A"
-        "nom" | "9h 18h"          | "0514782314"     | ""       | "A"
-        "nom" | "9h 18h"          | "05 14 78 23 14" | "Bus 63" | ""
+        "nom" | "9h 18h"          | "0514782314"     | null     | "A"
+        "nom" | "9h 18h"          | "05 14 78 23 14" | "Bus 63" | null
 	}
 
 	@Unroll
@@ -51,8 +51,6 @@ class MuseeSpec extends Specification {
 		"nom"  | "9h 18h"          | null             | "Bus 63" | "A"        | Mock(Adresse) | Mock(Gestionnaire)
 		"nom"  | "9h 18h"          | "un numéro"      | "Bus 63" | "A"        | Mock(Adresse) | Mock(Gestionnaire)
 		"nom"  | "9h 18h"          | "05 47 82 3"     | "Bus 63" | "A"        | Mock(Adresse) | Mock(Gestionnaire)
-		"nom"  | "9h 18h"          | "05 47 82 32 15" | null     | "A"        | Mock(Adresse) | Mock(Gestionnaire)
-		"nom"  | "9h 18h"          | "05 47 82 32 15" | "Bus 63" | null       | Mock(Adresse) | Mock(Gestionnaire)
 		"nom"  | "9h 18h"          | "05 47 82 32 15" | "Bus 63" | "A"        | null          | Mock(Gestionnaire)
         "nom"  | "9h 18h"          | "05 47 82 32 15" | "Bus 63" | "A"        | Mock(Adresse) | null
 	}
