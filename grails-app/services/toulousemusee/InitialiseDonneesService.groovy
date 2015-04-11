@@ -24,7 +24,6 @@ class InitialiseDonneesService {
                         codePostale: nextLine[9] as int,
                         ville: nextLine[10],
                 )
-                println(uneAdresse.numero + " " + uneAdresse.rue)
                 Musee unMusee = new Musee(
                         nom: nextLine[0],
                         horairesOuverture: nextLine[2],

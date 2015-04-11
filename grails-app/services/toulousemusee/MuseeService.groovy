@@ -9,4 +9,9 @@ class MuseeService {
         pGestionnaire.addToMusees(pMusee).save()
         pMusee
     }
+
+    void delete(Musee pMusee) {
+        pMusee.gestionnaire.removeFromMusees(pMusee)
+        pMusee.delete()
+    }
 }
