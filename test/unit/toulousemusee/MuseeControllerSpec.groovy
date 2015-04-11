@@ -1,7 +1,5 @@
 package toulousemusee
 
-
-import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(MuseeController)
