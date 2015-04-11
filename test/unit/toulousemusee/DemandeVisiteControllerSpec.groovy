@@ -1,6 +1,5 @@
 package toulousemusee
 
-
 import spock.lang.*
 
 @TestFor(DemandeVisiteController)
