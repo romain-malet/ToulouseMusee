@@ -6,6 +6,9 @@ class Adresse {
 	String rue
 	int codePostale
 	String ville
+	
+	
+	static belongsTo = Musee
 
 	static constraints = {
 		numero min:1, max:20
