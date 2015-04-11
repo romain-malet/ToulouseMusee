@@ -13,7 +13,8 @@ class AdresseSpec extends Specification {
     @Unroll
 	void "test adresse valide"(int numero, String nomRue, int codePostale, String ville){
 		given: "Une adresse avec un numéro de rue, le nom de la rue, le code postal et la vaille"
-		Adresse adresse = new Adresse(numero: numero, rue: nomRue, codePostale: codePostale, ville: ville)
+		Adresse adresse = new Adresse(numero: numero, rue: nomRue, codePostale: codePostale,
+                ville: ville, musee: Mock(Musee))
 
 		expect:"l'adresse est valide"
 		adresse.validate() == true
@@ -24,19 +25,23 @@ class AdresseSpec extends Specification {
 	}
 
     @Unroll
-	void "test adresse invalide"(int numero, String nomRue, int codePostale, String ville){
+	void "test adresse invalide"(int numero, String nomRue, int codePostale, String ville, Musee musee){
 		given: "Une adresse avec un numéro de rue, le nom de la rue, le code postal et la vaille"
-		Adresse adresse = new Adresse(numero: numero, rue: nomRue, codePostale: codePostale, ville: ville)
+		Adresse adresse = new Adresse(numero: numero, rue: nomRue, codePostale: codePostale,
+                ville: ville, musee: musee)
 
 		expect:"l'adresse est valide"
 		adresse.validate() == false
 
 		where:
-        numero | nomRue | codePostale | ville
-		-12    | null   | 300         | null
-		 12    | ""     | 300         | null
-		 12    | "Nom"  | 300         | null
-		 12    | "Nom"  | 3100        | null
-		 12    | "Nom"  | 3100        | ""
+        numero | nomRue | codePostale | ville   | musee
+		0      | "Nom"  | 31000       | "ville" | Mock(Musee)
+		12     | ""     | 31000       | "ville" | Mock(Musee)
+        12     | null   | 31000       | "ville" | Mock(Musee)
+		12     | "Nom"  | 30999       | "ville" | Mock(Musee)
+        12     | "Nom"  | 32000       | "ville" | Mock(Musee)
+		12     | "Nom"  | 31000       | ""      | Mock(Musee)
+		12     | "Nom"  | 31000       | null    | Mock(Musee)
+        12     | "Nom"  | 31000       | "ville" | null
 	}
 }

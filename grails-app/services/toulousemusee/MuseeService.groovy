@@ -5,7 +5,7 @@ import grails.transaction.Transactional
 @Transactional
 class MuseeService {
 
-    def serviceMethod() {
+    Musee insertOrUpdate(Musee pMusee, Gestionnaire pGestionnaire) {
 
     }
 }
