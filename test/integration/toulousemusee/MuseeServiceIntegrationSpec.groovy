@@ -81,6 +81,7 @@ class MuseeServiceIntegrationSpec extends Specification {
                 adresse: uneAdresse
         )
         Gestionnaire unGestionnaire = new Gestionnaire(name: "le gestionnaire")
+
         Musee resMusee = museeService.insertOrUpdate(unMusee, unGestionnaire)
         def adresseId = resMusee.adresseId
 
