@@ -10,10 +10,11 @@ class DemandeVisiteControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-
-        params["date"] = new Date()
-        params["musee"] = Mock(Musee)
-        params["demandeVisite"] = Mock(DemandeVisite)
+        params["code"] = "CODE-1234567"
+        params["dateDebutPeriode"] = new Date()
+        params["dateFinPeriode"] = new Date() + 1
+        params["nbPersonne"] = 2
+        params["statut"] = "En cours de traitement"
     }
 
     void "Test the index action returns the correct model"() {

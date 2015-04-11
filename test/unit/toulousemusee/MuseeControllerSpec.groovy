@@ -5,19 +5,26 @@ import grails.test.mixin.TestFor
 import spock.lang.*
 
 @TestFor(MuseeController)
-@Mock(Musee)
+@Mock([Musee, Gestionnaire, Adresse])
 class MuseeControllerSpec extends Specification {
+
+    Gestionnaire unGestionnaire
+    Adresse uneAdresse
+
+    def setup() {
+        unGestionnaire = new Gestionnaire(name: "gestionnaire").save()
+        uneAdresse = new Adresse(numero: 42, rue: "rue", codePostale: 31000, ville: "toulouse")
+    }
 
     def populateValidParams(params) {
         assert params != null
-
         params["nom"] = 'someValidName'
         params["horairesOuverture"] = 'someValidName'
-        params["telephone"] = 'someValidName'
+        params["telephone"] = "05 62 53 86 95"
         params["accesBus"] = 'someValidName'
         params["accesMetro"] = 'someValidName'
-        params["adresse"] = Mock(Adresse)
-        params["gestionnaire"] = Mock(Gestionnaire)
+        params["adresse"] = uneAdresse
+        params["gestionnaire"] = unGestionnaire
     }
 
     void "Test the index action returns the correct model"() {
