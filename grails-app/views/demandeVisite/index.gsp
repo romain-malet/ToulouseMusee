@@ -32,8 +32,6 @@
 					
 						<g:sortableColumn property="nbPersonne" title="${message(code: 'demandeVisite.nbPersonne.label', default: 'Nb Personne')}" />
 					
-						<th><g:message code="demandeVisite.musee.label" default="Musee" /></th>
-					
 						<g:sortableColumn property="statut" title="${message(code: 'demandeVisite.statut.label', default: 'Statut')}" />
 					
 					</tr>
@@ -50,9 +48,7 @@
 					
 						<td>${fieldValue(bean: demandeVisiteInstance, field: "nbPersonne")}</td>
 					
-						<td>${fieldValue(bean: demandeVisiteInstance, field: "musee")}</td>
-					
-						<td><g:formatBoolean boolean="${demandeVisiteInstance.statut}" /></td>
+						<td>${fieldValue(bean: demandeVisiteInstance, field: "statut")}</td>
 					
 					</tr>
 				</g:each>

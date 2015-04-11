@@ -59,31 +59,33 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${demandeVisiteInstance?.ddeVisitMusee}">
+				<g:if test="${demandeVisiteInstance?.statut}">
 				<li class="fieldcontain">
-					<span id="ddeVisitMusee-label" class="property-label"><g:message code="demandeVisite.ddeVisitMusee.label" default="Dde Visit Musee" /></span>
+					<span id="statut-label" class="property-label"><g:message code="demandeVisite.statut.label" default="Statut" /></span>
 					
-						<g:each in="${demandeVisiteInstance.ddeVisitMusee}" var="d">
-						<span class="property-value" aria-labelledby="ddeVisitMusee-label"><g:link controller="demandeVisiteMusee" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="statut-label"><g:fieldValue bean="${demandeVisiteInstance}" field="statut"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${demandeVisiteInstance?.demandesVisitesMusees}">
+				<li class="fieldcontain">
+					<span id="demandesVisitesMusees-label" class="property-label"><g:message code="demandeVisite.demandesVisitesMusees.label" default="Demandes Visites Musees" /></span>
+					
+						<g:each in="${demandeVisiteInstance.demandesVisitesMusees}" var="d">
+						<span class="property-value" aria-labelledby="demandesVisitesMusees-label"><g:link controller="demandeVisiteMusee" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${demandeVisiteInstance?.musee}">
+				<g:if test="${demandeVisiteInstance?.musees}">
 				<li class="fieldcontain">
-					<span id="musee-label" class="property-label"><g:message code="demandeVisite.musee.label" default="Musee" /></span>
+					<span id="musees-label" class="property-label"><g:message code="demandeVisite.musees.label" default="Musees" /></span>
 					
-						<span class="property-value" aria-labelledby="musee-label"><g:link controller="musee" action="show" id="${demandeVisiteInstance?.musee?.id}">${demandeVisiteInstance?.musee?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${demandeVisiteInstance?.statut}">
-				<li class="fieldcontain">
-					<span id="statut-label" class="property-label"><g:message code="demandeVisite.statut.label" default="Statut" /></span>
-					
-						<span class="property-value" aria-labelledby="statut-label"><g:formatBoolean boolean="${demandeVisiteInstance?.statut}" /></span>
+						<g:each in="${demandeVisiteInstance.musees}" var="m">
+						<span class="property-value" aria-labelledby="musees-label"><g:link controller="musee" action="show" id="${m.id}">${m?.encodeAsHTML()}</g:link></span>
+						</g:each>
 					
 				</li>
 				</g:if>

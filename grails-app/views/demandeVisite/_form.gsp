@@ -7,7 +7,7 @@
 		<g:message code="demandeVisite.code.label" default="Code" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="code" type="number" min="1" value="${demandeVisiteInstance.code}" required=""/>
+	<g:textField name="code" pattern="${demandeVisiteInstance.constraints.code.matches}" required="" value="${demandeVisiteInstance?.code}"/>
 
 </div>
 
@@ -38,14 +38,23 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: demandeVisiteInstance, field: 'ddeVisitMusee', 'error')} ">
-	<label for="ddeVisitMusee">
-		<g:message code="demandeVisite.ddeVisitMusee.label" default="Dde Visit Musee" />
+<div class="fieldcontain ${hasErrors(bean: demandeVisiteInstance, field: 'statut', 'error')} required">
+	<label for="statut">
+		<g:message code="demandeVisite.statut.label" default="Statut" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select name="statut" from="${demandeVisiteInstance.constraints.statut.inList}" required="" value="${demandeVisiteInstance?.statut}" valueMessagePrefix="demandeVisite.statut"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: demandeVisiteInstance, field: 'demandesVisitesMusees', 'error')} ">
+	<label for="demandesVisitesMusees">
+		<g:message code="demandeVisite.demandesVisitesMusees.label" default="Demandes Visites Musees" />
 		
 	</label>
 	
 <ul class="one-to-many">
-<g:each in="${demandeVisiteInstance?.ddeVisitMusee?}" var="d">
+<g:each in="${demandeVisiteInstance?.demandesVisitesMusees?}" var="d">
     <li><g:link controller="demandeVisiteMusee" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></li>
 </g:each>
 <li class="add">
@@ -56,21 +65,12 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: demandeVisiteInstance, field: 'musee', 'error')} required">
-	<label for="musee">
-		<g:message code="demandeVisite.musee.label" default="Musee" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="musee" name="musee.id" from="${toulousemusee.Musee.list()}" optionKey="id" required="" value="${demandeVisiteInstance?.musee?.id}" class="many-to-one"/>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: demandeVisiteInstance, field: 'statut', 'error')} ">
-	<label for="statut">
-		<g:message code="demandeVisite.statut.label" default="Statut" />
+<div class="fieldcontain ${hasErrors(bean: demandeVisiteInstance, field: 'musees', 'error')} ">
+	<label for="musees">
+		<g:message code="demandeVisite.musees.label" default="Musees" />
 		
 	</label>
-	<g:checkBox name="statut" value="${demandeVisiteInstance?.statut}" />
+	<g:select name="musees" from="${toulousemusee.Musee.list()}" multiple="multiple" optionKey="id" size="5" value="${demandeVisiteInstance?.musees*.id}" class="many-to-many"/>
 
 </div>
 
