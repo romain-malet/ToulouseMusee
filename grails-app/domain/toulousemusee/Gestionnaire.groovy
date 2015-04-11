@@ -7,5 +7,6 @@ class Gestionnaire {
     static hasMany = [musees: Musee]
 
     static constraints = {
+        name unique: true
     }
 }

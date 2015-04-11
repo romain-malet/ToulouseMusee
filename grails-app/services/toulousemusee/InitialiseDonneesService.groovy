@@ -6,9 +6,7 @@ import liquibase.util.csv.opencsv.CSVReader
 @Transactional
 class InitialiseDonneesService {
 
-    GestionnaireService gestionnaireService
     MuseeService museeService
-    AdresseService adresseService
 
     def initData() {
         if (Musee.count() == 0 && Gestionnaire.count() == 0) {
@@ -18,15 +16,14 @@ class InitialiseDonneesService {
             while ((nextLine = csv.readNext())) {
                 Gestionnaire unGestionnaire = Gestionnaire.findByName(nextLine[1])
                 if (!unGestionnaire) {
-                    unGestionnaire  = gestionnaireService.insertOrUpdate(new Gestionnaire(
-                            nom: nextLine[1]))
+                    unGestionnaire  = new Gestionnaire(nom: nextLine[1])
                 }
-                Adresse uneAdresse = adresseService.insertOrUpdate(new Adresse(
+                Adresse uneAdresse = new Adresse(
                         numero: nextLine[7],
                         rue: nextLine[8],
                         codePostale: nextLine[9],
                         ville: nextLine[10],
-                ))
+                )
                 museeService.insertOrUpdate(new Musee(
                         nom: nextLine[0],
                         horairesOuverture: nextLine[2],

@@ -9,6 +9,7 @@ class Musee {
 	String accesMetro
 	
 	Adresse adresse
+    Gestionnaire gestionnaire
 
     static hasMany = [ddeVisitMusee: DemandeVisiteMusee]
 

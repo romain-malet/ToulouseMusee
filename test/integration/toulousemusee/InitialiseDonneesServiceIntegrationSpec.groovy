@@ -11,32 +11,32 @@ class InitialiseDonneesServiceIntegrationSpec extends Specification {
 
     InitialiseDonneesService initialiseDonneesService
 
-    void "test l'initialisation des données pour les musées et les gestionnaires"() {
+    void "test l'initialisation des données pour les musées, leur adresse et leur gestionnaire"() {
 
-        given: "il n'y a aucun musée ni gestionnaires"
+        given: "il n'y a aucun musée ni gestionnaire ni adresse"
         Musee.count() == 0
         Adresse.count() == 0
         Gestionnaire.count() == 0
 
-        when: "on lance le service d'initialisation des données"
+        when: "on initialise les données des musées"
         initialiseDonneesService.initData()
 
-        then: "il y a 12 musées et 4 gestionnaires"
+        then: "il y a 12 musées, 12 adresses et 4 gestionnaires"
         Musee.count() == 12
         Adresse.count() == 12
         Gestionnaire.count() == 4
 
-        when: "initialisation déjà faite"
+        when: "l'initialisation est déjà faite"
         Musee.count() == 12
         Adresse.count() == 12
         Gestionnaire.count() == 4
 
-        and: "relance l'initialisation"
+        and: "on relance l'initialisation"
         initialiseDonneesService.initData()
 
-        then: "toujours 12 musées et 4 gestionnaires"
+        then: "il y a toujours 12 musées, 12 adresses et 4 gestionnaires"
         Musee.count() == 12
-        Adresse.count() == 12;
+        Adresse.count() == 12
         Gestionnaire.count() == 4
     }
 }
