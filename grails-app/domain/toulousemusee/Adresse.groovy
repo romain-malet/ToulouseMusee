@@ -6,7 +6,7 @@ class Adresse {
 	String rue
 	int codePostale
 	String ville
-
+	
     static belongsTo = [musee: Musee]
 
 	static constraints = {
@@ -14,5 +14,9 @@ class Adresse {
 		rue blank:false
 		codePostale min:31000, max:31999
 		ville blank:false
+	}
+	
+	String toString(){
+		return "$numero $rue\n$codePostale $ville"
 	}
 }
