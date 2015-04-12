@@ -2,7 +2,7 @@ package toulousemusee
 
 class Musee {
 
-	
+
 	String nom
 	String horairesOuverture
 	String telephone
@@ -15,13 +15,17 @@ class Musee {
 	static hasOne = [gestionnaire:Gestionnaire]
 
 	static hasMany = [ddeVisitMusee: DemandeVisiteMusee]
-	
+
 
 	static constraints = {
 		nom blank:false
 		horairesOuverture blank:false
 		telephone blank:false, matches:'0\\d\\s*\\d{2}\\s*\\d{2}\\s*\\d{2}\\s*\\d{2}'
-        accesBus nullable: true
-        accesMetro nullable: true
-    }
+		accesBus nullable: true
+		accesMetro nullable: true
+	}
+
+	String toString(){
+		return "$nom"
+	}
 }
