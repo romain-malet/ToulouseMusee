@@ -28,10 +28,10 @@ class SearchController {
 	}
 
 	def getCodes(){
-		Set musees = Musee.list()
+		Set adresses = Adresse.list()
 		Set codes = new HashSet()
-		for(Musee musee : musees){
-			codes.add(musee.adresse.codePostale)
+		for(Adresse adresse : adresses){
+			codes.add(adresse.codePostale)
 		}
 		return new ArrayList(codes)
 	}
