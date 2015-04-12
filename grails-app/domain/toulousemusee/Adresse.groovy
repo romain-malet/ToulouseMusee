@@ -15,4 +15,8 @@ class Adresse {
 		codePostale min:31000, max:31999
 		ville blank:false
 	}
+	
+	String toString(){
+		return "$numero $rue\n$codePostale $ville"
+	}
 }

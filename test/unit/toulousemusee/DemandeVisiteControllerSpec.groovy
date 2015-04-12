@@ -138,6 +138,7 @@ class DemandeVisiteControllerSpec extends Specification {
         response.reset()
         populateValidParams(params)
         def demandeVisite = new DemandeVisite(params).save(flush: true)
+		println demandeVisite.errors
 
         then: "It exists"
         DemandeVisite.count() == 1
