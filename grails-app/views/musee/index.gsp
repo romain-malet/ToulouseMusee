@@ -35,6 +35,7 @@
 						<g:sortableColumn property="accesMetro" title="${message(code: 'musee.accesMetro.label', default: 'Acces Metro')}" />
 					
 						<th><g:message code="musee.adresse.label" default="Adresse" /></th>
+						<th><g:message code="musee.gestionnaire.label" default="Gestionnaire" /></th>
 					
 					</tr>
 				</thead>
@@ -53,6 +54,8 @@
 						<td>${fieldValue(bean: museeInstance, field: "accesMetro")}</td>
 					
 						<td>${fieldValue(bean: museeInstance, field: "adresse")}</td>
+						
+						<td>${fieldValue(bean: museeInstance, field: "gestionnaire")}</td>
 					
 					</tr>
 				</g:each>
