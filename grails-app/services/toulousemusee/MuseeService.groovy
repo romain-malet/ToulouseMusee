@@ -37,4 +37,14 @@ class MuseeService {
         def results = criteria.list()
         results
     }
+
+    List<Integer> postalCode() {
+        def postals = Musee.withCriteria {
+            projections {
+                distinct 'adresse.codePostale'
+            }
+            order 'adresse.codePostale'
+        }
+        postals
+    }
 }

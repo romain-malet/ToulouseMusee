@@ -46,16 +46,61 @@
 	<g:textField name="accesMetro" value="${museeInstance?.accesMetro}"/>
 
 </div>
-
-<div class="fieldcontain ${hasErrors(bean: museeInstance, field: 'adresse', 'error')} required">
-	<label for="adresse">
-		<g:message code="musee.adresse.label" default="Adresse" />
+<fieldset class="embedded"><legend><g:message code="musee.adresse.label" default="Adresse" /></legend>
+<div class="fieldcontain ${hasErrors(bean: museeInstance, field: 'adresse.codePostale', 'error')} required">
+	<label for="adresse.codePostale">
+		<g:message code="musee.adresse.codePostale.label" default="Code Postale" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="adresse" name="adresse.id" from="${toulousemusee.Adresse.list()}" optionKey="id" required="" value="${museeInstance?.adresse?.id}" class="many-to-one"/>
+	<g:field name="codePostale" type="number" min="31000" max="31999" value="${adresseInstance.codePostale}" required=""/>
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: museeInstance, field: 'adresse.id', 'error')} required">
+	<label for="adresse.id">
+		<g:message code="musee.adresse.id.label" default="Id" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="id" type="number" value="${adresseInstance.id}" required=""/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: museeInstance, field: 'adresse.numero', 'error')} required">
+	<label for="adresse.numero">
+		<g:message code="musee.adresse.numero.label" default="Numero" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="numero" type="number" min="1" value="${adresseInstance.numero}" required=""/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: museeInstance, field: 'adresse.rue', 'error')} required">
+	<label for="adresse.rue">
+		<g:message code="musee.adresse.rue.label" default="Rue" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="rue" required="" value="${adresseInstance?.rue}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: museeInstance, field: 'adresse.version', 'error')} required">
+	<label for="adresse.version">
+		<g:message code="musee.adresse.version.label" default="Version" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="version" type="number" value="${adresseInstance.version}" required=""/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: museeInstance, field: 'adresse.ville', 'error')} required">
+	<label for="adresse.ville">
+		<g:message code="musee.adresse.ville.label" default="Ville" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="ville" required="" value="${adresseInstance?.ville}"/>
+
+</div>
+</fieldset>
 <div class="fieldcontain ${hasErrors(bean: museeInstance, field: 'ddeVisitMusee', 'error')} ">
 	<label for="ddeVisitMusee">
 		<g:message code="musee.ddeVisitMusee.label" default="Dde Visit Musee" />

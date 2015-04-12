@@ -75,26 +75,43 @@ class MuseeServiceIntegrationSpec extends Specification {
         when: "on recherche un musée par code postal"
         resultats = museeService.search(null, 31500, null)
 
-        then: "on obtient 2 musées"
+        then: "on obtient 1 musée"
         resultats.size() == 1
 
         when: "on recherche un musée par nom de rue"
         resultats = museeService.search(null, 0, "METZ")
 
-        then: "on obtient 2 musées"
+        then: "on obtient 1 musée"
         resultats.size() == 1
 
         when: "on recherche un musée par nom de rue"
         resultats = museeService.search(null, 31500, "DE")
 
-        then: "on obtient 2 musées"
+        then: "on obtient 1 musée"
         resultats.size() == 1
 
         when: "on recherche sans critère"
         resultats = museeService.search(null, 0, null)
 
-        then: "on obtient 2 musées"
+        then: "on obtient 12 musées"
         resultats.size() == 12
+    }
+
+
+    void "test la recupération des codes postaux"() {
+        given: "l'initialisation des données"
+        initialiseDonneesService.initData()
+
+        when: "demande la liste des codes postaux"
+        List<Integer> postaux = museeService.postalCode()
+
+        then: "on a bien 5 codes postaux"
+        postaux.size() == 5
+
+        and: "ils sont ordonnés correctement"
+        postaux.get(0) == 31000
+        postaux.get(1) == 31200
+        postaux.get(4) == 31500
     }
 
 

@@ -72,7 +72,7 @@
 				<li class="fieldcontain">
 					<span id="adresse-label" class="property-label"><g:message code="musee.adresse.label" default="Adresse" /></span>
 					
-						<span class="property-value" aria-labelledby="adresse-label"><g:link controller="adresse" action="show" id="${museeInstance?.adresse?.id}">${museeInstance?.adresse?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="adresse-label"><g:fieldValue bean="${museeInstance}" field="adresse"/></span>
 					
 				</li>
 				</g:if>
