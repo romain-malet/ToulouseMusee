@@ -143,6 +143,10 @@ li, p {
 							<td>
 								${fieldValue(bean: result, field: "adresse")}
 							</td>
+							
+							<td>
+								${fieldValue(bean: result, field: "gestionnaire")}
+							</td>
 
 						</tr>
 					</g:each>
@@ -150,7 +154,7 @@ li, p {
 			</table>
 		</g:if>
 	</div>
-	<g:paginate next="Forward" prev="Back" max="5" controller="search"
+	<g:paginate max="5" controller="search"
 		action="index" total="${searchCount}"
 		params="[nom: params.nom,rue: params.rue, codePostale: params.codePostale]" />
 </body>
