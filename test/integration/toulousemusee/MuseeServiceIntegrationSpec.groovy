@@ -9,6 +9,7 @@ import spock.lang.*
 class MuseeServiceIntegrationSpec extends Specification {
 
     MuseeService museeService
+    InitialiseDonneesService initialiseDonneesService
 
     void "test l'insertion d'un musée avec un gestionnaire et une adresse"() {
         given: "une adresse"
@@ -58,9 +59,42 @@ class MuseeServiceIntegrationSpec extends Specification {
 
         and: "il a pour adresse l'adresse initiale"
         resMusee.adresse == uneAdresse
+    }
 
-        and: "l'adresse existe effectivement en base"
-        Adresse.findById(resMusee.adresseId)
+
+    void "test la recherche de musée"() {
+        given: "l'initialisation des données"
+        initialiseDonneesService.initData()
+
+        when: "on recherche un musée par son nom"
+        List<Musee> resultats = museeService.search("ARTS", 0, null)
+
+        then: "on obtient 2 musées"
+        resultats.size() == 2
+
+        when: "on recherche un musée par code postal"
+        resultats = museeService.search(null, 31500, null)
+
+        then: "on obtient 2 musées"
+        resultats.size() == 1
+
+        when: "on recherche un musée par nom de rue"
+        resultats = museeService.search(null, 0, "METZ")
+
+        then: "on obtient 2 musées"
+        resultats.size() == 1
+
+        when: "on recherche un musée par nom de rue"
+        resultats = museeService.search(null, 31500, "DE")
+
+        then: "on obtient 2 musées"
+        resultats.size() == 1
+
+        when: "on recherche sans critère"
+        resultats = museeService.search(null, 0, null)
+
+        then: "on obtient 2 musées"
+        resultats.size() == 12
     }
 
 
@@ -83,7 +117,6 @@ class MuseeServiceIntegrationSpec extends Specification {
         Gestionnaire unGestionnaire = new Gestionnaire(name: "le gestionnaire")
 
         Musee resMusee = museeService.insertOrUpdate(unMusee, unGestionnaire)
-        def adresseId = resMusee.adresseId
 
         when: "on tente de le supprimer"
         museeService.delete(unMusee)
@@ -93,8 +126,5 @@ class MuseeServiceIntegrationSpec extends Specification {
 
         and: "le gestionnaire n'a plus le musée dans sa liste"
         !unGestionnaire.musees.contains(unMusee)
-
-        and: "l'adresse n'est plus en base"
-        Adresse.findById(adresseId) == null
     }
 }

@@ -1,5 +1,6 @@
 package toulousemusee
 
+import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 import spock.lang.Unroll;
@@ -15,8 +16,7 @@ class MuseeSpec extends Specification {
                              String accesBus, String accesMetro) {
 		given: "Un musée valide avec nom, horaires d'ouverture, téléphone, accès bus et metro"
 		Musee musee = new Musee(nom: nom, horairesOuverture: horairesOuverture, telephone: telephone,
-                accesBus: accesBus, accesMetro: accesMetro,
-                adresse: Mock(Adresse), gestionnaire: Mock(Gestionnaire))
+                accesBus: accesBus, accesMetro: accesMetro)
 
 		expect: "le musée est valide"
 		musee.validate() == true

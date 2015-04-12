@@ -2,7 +2,6 @@ package toulousemusee
 
 class Musee {
 
-
 	String nom
 	String horairesOuverture
 	String telephone
@@ -12,10 +11,8 @@ class Musee {
 	Adresse adresse
 	Gestionnaire gestionnaire
 
-	static hasOne = [gestionnaire:Gestionnaire]
-
+    static embedded = ['adresse']
 	static hasMany = [ddeVisitMusee: DemandeVisiteMusee]
-
 
 	static constraints = {
 		nom blank:false
