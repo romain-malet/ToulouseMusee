@@ -1,5 +1,6 @@
 package toulousemusee
 
+import grails.gorm.PagedResultList
 import grails.transaction.Transactional
 import grails.gorm.DetachedCriteria
 
@@ -16,10 +17,10 @@ class MuseeService {
         pMusee.delete()
     }
 
-    List<Musee> search(String nomMusee, int postal, String nomRue) {
+    List<Musee> search(String nomMusee, int postal, String nomRue, int offset, int max) {
         def criteria = new DetachedCriteria(Musee).build {
             if (nomMusee) {
-                like 'nom', "%${nomMusee}%"
+                like 'nom', "%${nomMusee.toUpperCase()}%"
             }
         }
         criteria = criteria.build {
@@ -30,11 +31,11 @@ class MuseeService {
             }
             if (nomRue) {
                 or {
-                    like 'adresse.rue', "%${nomRue}%"
+                    like 'adresse.rue', "%${nomRue.toUpperCase()}%"
                 }
             }
         }
-        def results = criteria.list()
+        def results = criteria.list(max: max, offset: offset)
         results
     }
 

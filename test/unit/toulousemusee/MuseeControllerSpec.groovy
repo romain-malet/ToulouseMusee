@@ -11,6 +11,11 @@ class MuseeControllerSpec extends Specification {
     Gestionnaire unGestionnaire
     Adresse uneAdresse
 
+    def setup() {
+        unGestionnaire = new Gestionnaire(name: "gestionnaire").save()
+        uneAdresse = new Adresse(numero: 42, rue: "rue", codePostale: 31000, ville: "toulouse")
+    }
+
     def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...

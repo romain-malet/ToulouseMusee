@@ -1,5 +1,6 @@
 package toulousemusee
 
+import grails.gorm.PagedResultList
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -9,9 +10,31 @@ class MuseeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Musee.list(params), model: [museeInstanceCount: Musee.count()]
+    MuseeService museeService
+
+    def search() {
+        def nom = params.nom ?: ""
+        def cp = params.codePostale ?: 0
+        def rue = params.rue ?: ""
+        redirect(action: 'index', params: [nom: nom, cp: cp, rue: rue])
+    }
+
+    def index() {
+        def codePostaux = museeService.postalCode()
+        def offset = params.offset ?: 0
+        if (request.queryString) {
+            PagedResultList museeList = museeService.search(params.nom, params.cp as int, params.rue, offset as int, 5)
+            return [museeInstanceList: museeList,
+                    museeInstanceCount: museeList.getTotalCount(),
+                    showMusee: true,
+                    codes: codePostaux,
+                    param: params]
+        }
+        else {
+            return [codes: codePostaux,
+                    showMusee: false,
+                    param: params]
+        }
     }
 
     def show(Musee museeInstance) {
