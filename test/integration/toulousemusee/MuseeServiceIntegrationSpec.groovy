@@ -67,31 +67,31 @@ class MuseeServiceIntegrationSpec extends Specification {
         initialiseDonneesService.initData()
 
         when: "on recherche un musée par son nom"
-        List<Musee> resultats = museeService.search("ARTS", 0, null)
+        List<Musee> resultats = museeService.search("ARTS", 0, null, 0, 10)
 
         then: "on obtient 2 musées"
         resultats.size() == 2
 
         when: "on recherche un musée par code postal"
-        resultats = museeService.search(null, 31500, null)
+        resultats = museeService.search(null, 31500, null, 0, 10)
 
         then: "on obtient 1 musée"
         resultats.size() == 1
 
         when: "on recherche un musée par nom de rue"
-        resultats = museeService.search(null, 0, "METZ")
+        resultats = museeService.search(null, 0, "METZ", 0, 10)
 
         then: "on obtient 1 musée"
         resultats.size() == 1
 
         when: "on recherche un musée par nom de rue"
-        resultats = museeService.search(null, 31500, "DE")
+        resultats = museeService.search(null, 31500, "DE", 0, 10)
 
         then: "on obtient 1 musée"
         resultats.size() == 1
 
         when: "on recherche sans critère"
-        resultats = museeService.search(null, 0, null)
+        resultats = museeService.search(null, 0, null, 0, 20)
 
         then: "on obtient 12 musées"
         resultats.size() == 12
