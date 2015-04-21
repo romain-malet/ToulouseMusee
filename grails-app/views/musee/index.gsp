@@ -23,17 +23,17 @@
                 <fieldset class="form">
                     <div class="fieldcontain">
                         <label for="nom">
-                            Nom du musée :
+                            <g:message code="musee.form.nom.label" default="Nom du musée :" />
                         </label>
                         <g:textField name="nom" value="${param.nom}"/>
                         <label for="rue">
-                            Rue du musée :
+                            <g:message code="musee.form.rue.label" default="Rue du musée :" />
                         </label>
                         <g:textField name="rue" value="${param.rue}"/>
                     </div>
                     <div class="fieldcontain">
                         <label for="codePostale">
-                            Code postal :
+                            <g:message code="musee.form.code.label" default="Code postal :" />
                         </label>
                         <g:select name="codePostale"
                                   from="${codes}"
@@ -46,7 +46,7 @@
                 </fieldset>
             </g:form>
             <g:if test="${showMusee}">
-                <p class="num-result">${museeInstanceCount} résulta(s)</p>
+                <p class="num-result">${museeInstanceCount} <g:message code="musee.resultat.label" default="résultats" /></p>
 				<g:each in="${museeInstanceList}" status="i" var="museeInstance">
 					<div class="listing-musee">
                         <h2>

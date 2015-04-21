@@ -1,6 +1,6 @@
 <g:if test="${session.getAttribute("favoris")}">
     <div class="favoris">
-        <p class="titled">Mes musées préférés</p>
+        <p class="titled"><g:message code="favoris.label" default="Favoris" /></p>
         <ul class="list-fav">
             <g:each in="${session.getAttribute("favoris")}" var="musee">
                 <li>
@@ -16,7 +16,9 @@
             </g:each>
         </ul>
         <p class="visit">
-            <g:link url="[controller: 'demandeVisite', action: 'create']">Effectuer une demande de visite</g:link>
+            <g:link url="[controller: 'demandeVisite', action: 'create']">
+                <g:message code="demande.link" default="Effectuer une demande de visite" />
+            </g:link>
         </p>
     </div>
 </g:if>
