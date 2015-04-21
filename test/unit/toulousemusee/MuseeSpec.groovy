@@ -16,7 +16,7 @@ class MuseeSpec extends Specification {
                              String accesBus, String accesMetro) {
 		given: "Un musée valide avec nom, horaires d'ouverture, téléphone, accès bus et metro"
 		Musee musee = new Musee(nom: nom, horairesOuverture: horairesOuverture, telephone: telephone,
-                accesBus: accesBus, accesMetro: accesMetro)
+                accesBus: accesBus, accesMetro: accesMetro, adresse:Mock(Adresse))
 
 		expect: "le musée est valide"
 		musee.validate() == true
