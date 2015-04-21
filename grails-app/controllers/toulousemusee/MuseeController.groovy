@@ -50,6 +50,20 @@ class MuseeController {
         render template: "favorislist"
     }
 
+    def deleteFromFavoris() {
+        Map favorisList = session.getAttribute('favoris')
+        if (request.post) {
+            favorisList.remove(params.museeId as long)
+            session.setAttribute('favoris', favorisList)
+        }
+        render template: "favorislist"
+    }
+
+    def formFav() {
+        def musee = Musee.findById(params.id as long)
+        render template: "formAddFavoris", model: [id: params.id, nom: musee.nom]
+    }
+
     def show(Musee museeInstance) {
         respond museeInstance
     }

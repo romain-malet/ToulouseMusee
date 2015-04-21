@@ -9,50 +9,6 @@
 *
 *= require main
 *= require mobile
+*= require musee
 *= require_self
 */
-.num-result {
-    text-align: center;
-    font-weight: 600;
-    margin-bottom: 1em;
-    font-size: 70%;
-}
-
-.listing-musee {
-    margin: 0 2em 2em;
-    padding: 1em;
-    box-shadow: 0 0 5px #aaa;
-}
-
-.favoris {
-    position: fixed;
-    right: 10px;
-    top: 10px;
-    width: 300px;
-    border: 1px solid #666;
-    background: #fff;
-    box-shadow: 0 0 4px #666;
-}
-
-.titled {
-    background: #666;
-    color: #fff;
-    font-size: 85%;
-    text-align: center;
-    padding: 3px 0;
-    margin-bottom: 5px;
-}
-
-.list-fav {
-    font-size: 75%;
-    text-transform: lowercase;
-    list-style-position: inside;
-    padding-left: 5px;
-}
-
-.list-fav li {
-    margin-bottom: 5px;
-}
-.list-fav li:first-letter {
-    text-transform: capitalize;
-}

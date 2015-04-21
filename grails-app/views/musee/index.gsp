@@ -6,13 +6,6 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'musee.label', default: 'Musee')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
-        <script>
-            function addFav(data, formId) {
-                jQuery('#favoris').html(data);
-                jQuery('#form_'+formId).remove();
-                jQuery('#actionFav_'+formId).html('<input id="added_'+ formId +'" disabled="disabled" type="button" value="Ajouter à ma liste de musées"/>');
-            }
-        </script>
 	</head>
 	<body>
 		<a href="#list-musee" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -30,11 +23,11 @@
                 <fieldset class="form">
                     <div class="fieldcontain">
                         <label for="nom">
-                            Nom du musée contient :
+                            Nom du musée :
                         </label>
                         <g:textField name="nom" value="${param.nom}"/>
                         <label for="rue">
-                            La rue du musée contient :
+                            Rue du musée :
                         </label>
                         <g:textField name="rue" value="${param.rue}"/>
                     </div>
@@ -85,18 +78,11 @@
                         </p>
                         <g:if test="${museeInstanceCount > 2}">
                             <div id="actionFav_${museeInstance.id}" style="float: right">
-                                <g:if test="${session.getAttribute("favoris") != null && session.getAttribute("favoris").get(museeInstance.id)}">
+                                <g:if test="${session.getAttribute("favoris") && session.getAttribute("favoris").get(museeInstance.id)}">
                                     <input id="added_${museeInstance.id}" disabled="disabled" type="button" value="Ajouter à ma liste de musées"/>
                                 </g:if>
                                 <g:else>
-                                    <g:formRemote id="form_${museeInstance.id}"
-                                                  name="addFavoris"
-                                                  onSuccess="addFav(data, ${museeInstance.id})"
-                                                  url="[controller: 'musee', action: 'addToFavoris']">
-                                        <g:hiddenField name="museeNom" value="${fieldValue(bean: museeInstance, field: "nom")}" />
-                                        <g:hiddenField name="museeId" value="${museeInstance.id}" />
-                                        <g:actionSubmit value="Ajouter à ma liste de musées" />
-                                    </g:formRemote>
+                                    <g:render template="formAddFavoris" model="['id': museeInstance.id, 'nom': fieldValue(bean: museeInstance, field: 'nom')]" />
                                 </g:else>
                             </div>
                         </g:if>

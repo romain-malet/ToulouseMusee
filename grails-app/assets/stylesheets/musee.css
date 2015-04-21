@@ -1,0 +1,78 @@
+
+input[type="button"]:disabled {
+    color: #ccc;
+}
+
+.add-fav {
+    background: linear-gradient(to bottom, #eee 0%, #aaa 91%);
+}
+
+.num-result {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1em;
+    font-size: 70%;
+}
+
+.listing-musee {
+    margin: 0 2em 2em;
+    padding: 1em;
+    box-shadow: 0 0 5px #aaa;
+}
+
+.favoris {
+    position: fixed;
+    right: 0;
+    top: 10px;
+    width: 300px;
+    border: 1px solid #666;
+    border-width: 1px 0 1px 1px;
+    background: #fff;
+    box-shadow: 0 0 10px #666;
+}
+
+.titled {
+    background: #666;
+    color: #fff;
+    font-size: 85%;
+    text-align: center;
+    padding: 3px 0;
+    margin-bottom: 5px;
+}
+
+.visit {
+    text-align: center;
+    padding: 5px 0;
+    font-size: 90%;
+}
+
+.list-fav {
+    font-size: 75%;
+    text-transform: lowercase;
+    list-style: none;
+    padding: 0 5px;
+}
+
+.list-fav form {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.list-fav li {
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+.list-fav li:first-letter {
+    text-transform: capitalize;
+}
+.list-fav li:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+}
+
+.fav-label {
+    display: inline-block;
+    width: 70%;
+    vertical-align: middle;
+}
