@@ -6,6 +6,13 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'musee.label', default: 'Musee')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+        <script>
+            function addFav(data, formId) {
+                jQuery('#favoris').html(data);
+                jQuery('#form_'+formId).remove();
+                jQuery('#actionFav_'+formId).html('<input id="added_'+ formId +'" disabled="disabled" type="button" value="Ajouter à ma liste de musées"/>');
+            }
+        </script>
 	</head>
 	<body>
 		<a href="#list-musee" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -46,9 +53,9 @@
                 </fieldset>
             </g:form>
             <g:if test="${showMusee}">
-                <p style="text-align: center;font-weight: 600; margin-bottom: 1em">${museeInstanceCount} résulta(s)</p>
+                <p class="num-result">${museeInstanceCount} résulta(s)</p>
 				<g:each in="${museeInstanceList}" status="i" var="museeInstance">
-					<div style="margin: 0 2em 2em; padding: 1em; box-shadow: 0 0 5px #aaa">
+					<div class="listing-musee">
                         <h2>
                             <g:link action="show" id="${museeInstance.id}">${fieldValue(bean: museeInstance, field: "nom")}</g:link>
                         </h2>
@@ -77,18 +84,31 @@
                             ${fieldValue(bean: museeInstance, field: "gestionnaire")}
                         </p>
                         <g:if test="${museeInstanceCount > 2}">
-                            <div style="float: right">
-                                <g:form url="[action: 'listeMuseePreferes']">
-                                    <g:actionSubmit name="addToMusee" value="Ajouter à ma liste de musées" />
-                                </g:form>
+                            <div id="actionFav_${museeInstance.id}" style="float: right">
+                                <g:if test="${session.getAttribute("favoris") != null && session.getAttribute("favoris").get(museeInstance.id)}">
+                                    <input id="added_${museeInstance.id}" disabled="disabled" type="button" value="Ajouter à ma liste de musées"/>
+                                </g:if>
+                                <g:else>
+                                    <g:formRemote id="form_${museeInstance.id}"
+                                                  name="addFavoris"
+                                                  onSuccess="addFav(data, ${museeInstance.id})"
+                                                  url="[controller: 'musee', action: 'addToFavoris']">
+                                        <g:hiddenField name="museeNom" value="${fieldValue(bean: museeInstance, field: "nom")}" />
+                                        <g:hiddenField name="museeId" value="${museeInstance.id}" />
+                                        <g:actionSubmit value="Ajouter à ma liste de musées" />
+                                    </g:formRemote>
+                                </g:else>
                             </div>
                         </g:if>
                     </div>
 				</g:each>
 			<div class="pagination">
-				<g:paginate total="${museeInstanceCount ?: 0}" max="5" maxsteps="5" params="${[nom: param.nom, cp: param.cp, rue: param.rue]}" />
+				<g:paginate total="${museeInstanceCount ?: 0}" max="5" params="${[nom: param.nom, cp: param.cp, rue: param.rue]}" />
 			</div>
             </g:if>
 		</div>
+        <div id="favoris">
+            <g:render template="favorislist"/>
+        </div>
 	</body>
 </html>
