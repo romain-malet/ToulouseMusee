@@ -1,31 +1,37 @@
-<%@ page import="toulousemusee.DemandeVisiteMusee" %>
+<%@ page import="toulousemusee.DemandeVisiteMusee"%>
 
 
 
-<div class="fieldcontain ${hasErrors(bean: demandeVisiteMuseeInstance, field: 'dateDemande', 'error')} required">
-	<label for="dateDemande">
-		<g:message code="demandeVisiteMusee.dateDemande.label" default="Date Demande" />
-		<span class="required-indicator">*</span>
+<div
+	class="fieldcontain ${hasErrors(bean: demandeVisite, field: 'dateDebutPeriode', 'error')} required">
+	<label for="dateDebutPeriode"> <g:message
+			code="demandeVisite.dateDebutPeriode.label"
+			default="Début de la période" /> <span class="required-indicator">*</span>
 	</label>
-	<g:datePicker name="dateDemande" precision="day"  value="${demandeVisiteMuseeInstance?.dateDemande}"  />
+	<g:datePicker name="dateDebutPeriode" precision="day"
+		value="${new Date()}" />
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: demandeVisiteMuseeInstance, field: 'musee', 'error')} required">
-	<label for="musee">
-		<g:message code="demandeVisiteMusee.musee.label" default="Musee" />
+<div
+	class="fieldcontain ${hasErrors(bean: demandeVisite, field: 'dateFinPeriode', 'error')} required">
+	<label for="dateFinPeriode"> <g:message
+			code="demandeVisite.dateFinPeriode.label" default="Fin de la période" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="musee" name="musee.id" from="${toulousemusee.Musee.list()}" optionKey="id" required="" value="${demandeVisiteMuseeInstance?.musee?.id}" class="many-to-one"/>
+	<g:datePicker name="dateFinPeriode" precision="day"
+		value="${new Date() + 1 }" />
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: demandeVisiteMuseeInstance, field: 'demandeVisite', 'error')} required">
-	<label for="demandeVisite">
-		<g:message code="demandeVisiteMusee.demandeVisite.label" default="Demande Visite" />
+<div
+	class="fieldcontain ${hasErrors(bean: demandeVisiteInstance, field: 'nbPersonne', 'error')} required">
+	<label for="Musees"> <g:message
+			code="demandeVisite.nbPersonne.label" default="Nombre de personnes" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="demandeVisite" name="demandeVisite.id" from="${toulousemusee.DemandeVisite.list()}" optionKey="id" required="" value="${demandeVisiteMuseeInstance?.demandeVisite?.id}" class="many-to-one"/>
+	<g:select name="nbPersonne" from="${1..6}" class="range" required=""
+		value="${fieldValue(bean: demandeVisiteInstance, field: 'nbPersonne')}" />
 
 </div>
 
