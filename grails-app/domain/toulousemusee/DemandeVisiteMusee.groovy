@@ -8,5 +8,11 @@ class DemandeVisiteMusee {
 
     static constraints = {
         dateDemande (validator: {val, obj -> val?.after(new Date() - 1)})
+		musee nullable:false
+		demandeVisite nullable:false
     }
+	
+	static mapping = {
+		demandeVisite cascade: 'all'
+	  }
 }

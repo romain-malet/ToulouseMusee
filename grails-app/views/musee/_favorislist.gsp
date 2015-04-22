@@ -16,7 +16,7 @@
             </g:each>
         </ul>
         <p class="visit">
-            <g:link url="[controller: 'demandeVisite', action: 'create']">
+            <g:link url="[controller: 'demandeVisiteMusee', action: 'create']">
                 <g:message code="demande.link" default="Effectuer une demande de visite" />
             </g:link>
         </p>

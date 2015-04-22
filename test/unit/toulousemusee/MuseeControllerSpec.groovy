@@ -1,6 +1,7 @@
 package toulousemusee
 
 
+import grails.gorm.PagedResultList;
 import grails.test.mixin.*
 import spock.lang.*
 
@@ -29,13 +30,21 @@ class MuseeControllerSpec extends Specification {
     }
 
     void "Test the index action returns the correct model"() {
+		
+		given:
+		def resultList = mockFor(PagedResultList)
+		resultList.demand.getTotalCount { -> return 0 } 
+		def museeService = mockFor(MuseeService)
+		PagedResultList resultMock = resultList.createMock()
+		museeService.demand.postalCode {  -> return [] }
+		museeService.demand.search { -> return resultList}
+		controller.museeService = museeService.createMock()
 
         when: "The index action is executed"
         controller.index()
 
         then: "The model is correct"
         !model.museeInstanceList
-        model.museeInstanceCount == 0
     }
 
     void "Test that the show action returns the correct model"() {
