@@ -26,6 +26,7 @@ class DemandeVisiteMuseeController {
 	@Transactional
 	def save() {
 		def musees = session.getAttribute("favoris")
+		List demandes = new ArrayList<DemandeVisiteMusee>();
 		Date date = new Date()
 		Map codes = new HashMap<Musee, String>()
 		for (long museeId : musees.keySet()){
@@ -36,13 +37,14 @@ class DemandeVisiteMuseeController {
 				respond demandeVisite, view:'create', model:["demandeViste": demandeVisite]
 				return
 			}
-			demandeVisite.save(flush:true, failOnError: true)
+			demandeVisite.save(flush:true)
 			codes.put(musee, demandeVisite.code)
 			DemandeVisiteMusee demandeVisiteMusee = new DemandeVisiteMusee(demandeVisite:demandeVisite,
 			musee:musee, dateDemande:date)
 			demandeVisiteMusee.save flush:true
+			demandes.put(demandeVisiteMusee)
 		}
-		log.info codes
+		session.setAttribute('demandes', demandes)
 		respond codes, view:'show', model:[codes:codes]
 	}
 
