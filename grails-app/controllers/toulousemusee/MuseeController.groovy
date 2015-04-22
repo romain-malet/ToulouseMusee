@@ -13,10 +13,8 @@ class MuseeController {
     MuseeService museeService
 
     def search() {
-        def nom = params.nom ?: ""
         def cp = params.codePostale ?: 0
-        def rue = params.rue ?: ""
-        redirect(action: 'index', params: [nom: nom, cp: cp, rue: rue])
+        redirect(action: 'index', params: [nom: params.nom, cp: cp, rue: params.rue])
     }
 
     def index() {
