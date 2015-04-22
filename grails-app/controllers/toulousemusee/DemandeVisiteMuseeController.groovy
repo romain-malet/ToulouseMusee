@@ -27,13 +27,11 @@ class DemandeVisiteMuseeController {
 
 	@Transactional
 	def save() {
-		String code = demandeVisiteMuseeService.getNextCode()
-		DemandeVisite demandeVisite = new DemandeVisite(
-			code:code,
-			dateDebutPeriode:params.dateDebutPeriode,
-			dateFinPeriode:params.dateFinPeriode,
-			nbPersonne: params.nbPersonne as int)
-		
+		DemandeVisite demandeVisite = demandeVisiteMuseeService.createDemandeVisite(
+				params.dateDebutPeriode,
+				params.dateFinPeriode,
+				params.nbPersonne as int)
+
 		if(!demandeVisite.validate()){
 			respond demandeVisite, view:'create', model:["demandeViste": demandeVisite]
 			return
@@ -41,8 +39,9 @@ class DemandeVisiteMuseeController {
 		Map musees = session.getAttribute("favoris")
 
 		List<DemandeVisiteMusee> demandes = demandeVisiteMuseeService.save(params.dateDebutPeriode,
-			 params.dateFinPeriode, params.nbPersonne as int, musees.keySet())
-
+				params.dateFinPeriode, params.nbPersonne as int, musees.keySet().asList())
+		
+		session.setAttribute("favoris", null)
 		session.setAttribute('demandes', demandes)
 		respond demandes, view:'show', model:[codes:demandes]
 	}

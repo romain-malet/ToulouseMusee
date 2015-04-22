@@ -15,16 +15,16 @@
 		<ul>
 			<li><a class="home" href="${createLink(uri: '/')}"><g:message
 						code="default.home.label" /></a></li>
-			<li><g:link class="list" action="index">
-					<g:message code="default.list.label" args="[entityName]" />
-				</g:link></li>
 		</ul>
 	</div>
-	<div>
-		<p>Vos demandes de vistes ont été bien envoyées et seront traitées prochainement.</p>
-		<p>Voici vos codes : ${codes.values()}</p>
-		
-		 
+	<div></div>
+	<div class="listing-musee" class="content scaffold-list" role="main">
+		<p>Vos demandes de vistes ont été bien envoyées et seront traitées
+			prochainement.</p>
+		<p>
+			Voici vos codes :
+			${codes}
+		</p>
 	</div>
 </body>
 </html>

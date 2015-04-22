@@ -15,4 +15,8 @@ class DemandeVisiteMusee {
 	static mapping = {
 		demandeVisite cascade: 'all'
 	  }
+	
+	String toString(){
+		return "Code : ${demandeVisite?.code}"
+	}
 }

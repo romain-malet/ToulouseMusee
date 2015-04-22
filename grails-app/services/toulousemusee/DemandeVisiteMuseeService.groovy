@@ -1,11 +1,13 @@
 package toulousemusee;
 
+import grails.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Transactional
 public class DemandeVisiteMuseeService {
 
 	List save(Date debut, Date fin, int nbPersonne, List<Long> musees){
@@ -19,7 +21,7 @@ public class DemandeVisiteMuseeService {
 			codes.put(musee, demandeVisite.code)
 			DemandeVisiteMusee demandeVisiteMusee = new DemandeVisiteMusee(demandeVisite:demandeVisite,
 			musee:musee, dateDemande:date)
-			demandeVisiteMusee.save flush:true
+			demandeVisiteMusee.save flush:true, failOnErrors:true
 			demandes.add(demandeVisiteMusee)
 		}
 		return demandes
@@ -29,9 +31,10 @@ public class DemandeVisiteMuseeService {
 		String code = getNextCode()
 		return new DemandeVisite(
 				code:code,
-				dateDebutPeriode:params.dateDebutPeriode,
-				dateFinPeriode:params.dateFinPeriode,
-				nbPersonne: params.nbPersonne as int)
+				dateDebutPeriode:debut,
+				dateFinPeriode:fin,
+				nbPersonne: nbPersonne,
+				statut:"En cours de traitement")
 	}
 
 	String getNextCode(){
