@@ -19,7 +19,7 @@ class DemandeVisite {
 	String getNextCode(){
 		DemandeVisite demande = DemandeVisite.find("from DemandeVisite order by id desc")
 		if(demande){
-			return "CODE-${demande.code + 1}" ;
+			return "CODE-${demande.id + 1}" ;
 		} else {
 			return "CODE-0"
 		}
@@ -31,7 +31,7 @@ class DemandeVisite {
 	]
 
 	static constraints = {
-		code unique: true, matches: "CODE-[0-9]?"
+		code unique: true, matches: "CODE-[0-9]?+"
 		dateDebutPeriode (validator: {val, obj -> val?.after(new Date() - 1)})
 		dateFinPeriode (validator: {val, obj -> val?.after(obj.dateDebutPeriode)})
 		nbPersonne range: 1..6
