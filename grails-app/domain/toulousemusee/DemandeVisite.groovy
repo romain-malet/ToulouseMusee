@@ -8,23 +8,6 @@ class DemandeVisite {
 	int nbPersonne
 	String statut
 
-	public DemandeVisite(Date dateDebut, Date dateFin, int nbPersonne){
-		code = getNextCode()
-		dateDebutPeriode = dateDebut
-		dateFinPeriode = dateFin
-		this.nbPersonne = nbPersonne
-		statut = "En cours de traitement"
-	}
-
-	String getNextCode(){
-		DemandeVisite demande = DemandeVisite.find("from DemandeVisite order by id desc")
-		if(demande){
-			return "CODE-${demande.id + 1}" ;
-		} else {
-			return "CODE-0"
-		}
-	}
-
 	static hasMany = [
 		demandesVisitesMusees: DemandeVisiteMusee,
 		musees: Musee
@@ -40,6 +23,10 @@ class DemandeVisite {
 			"Confirmée",
 			"Refusée"
 		]
+	}
+	
+	static mapping = {
+		statut defaultValue: "En cours de traitement"
 	}
 	
 	String toString(){

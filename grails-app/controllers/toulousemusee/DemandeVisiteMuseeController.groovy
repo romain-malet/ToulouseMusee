@@ -8,6 +8,8 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class DemandeVisiteMuseeController {
 
+	DemandeVisiteMuseeService demandeVisiteMuseeService
+
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 	def index(Integer max) {
@@ -25,27 +27,24 @@ class DemandeVisiteMuseeController {
 
 	@Transactional
 	def save() {
-		def musees = session.getAttribute("favoris")
-		List demandes = new ArrayList<DemandeVisiteMusee>();
-		Date date = new Date()
-		Map codes = new HashMap<Musee, String>()
-		for (long museeId : musees.keySet()){
-			Musee musee = Musee.get(museeId)
-			DemandeVisite demandeVisite = new DemandeVisite(params.dateDebutPeriode,
-					params.dateFinPeriode, params.nbPersonne as int)
-			if(!demandeVisite.validate()){
-				respond demandeVisite, view:'create', model:["demandeViste": demandeVisite]
-				return
-			}
-			demandeVisite.save(flush:true)
-			codes.put(musee, demandeVisite.code)
-			DemandeVisiteMusee demandeVisiteMusee = new DemandeVisiteMusee(demandeVisite:demandeVisite,
-			musee:musee, dateDemande:date)
-			demandeVisiteMusee.save flush:true
-			demandes.add(demandeVisiteMusee)
+		String code = demandeVisiteMuseeService.getNextCode()
+		DemandeVisite demandeVisite = new DemandeVisite(
+			code:code,
+			dateDebutPeriode:params.dateDebutPeriode,
+			dateFinPeriode:params.dateFinPeriode,
+			nbPersonne: params.nbPersonne as int)
+		
+		if(!demandeVisite.validate()){
+			respond demandeVisite, view:'create', model:["demandeViste": demandeVisite]
+			return
 		}
+		Map musees = session.getAttribute("favoris")
+
+		List<DemandeVisiteMusee> demandes = demandeVisiteMuseeService.save(params.dateDebutPeriode,
+			 params.dateFinPeriode, params.nbPersonne as int, musees.keySet())
+
 		session.setAttribute('demandes', demandes)
-		respond codes, view:'show', model:[codes:codes]
+		respond demandes, view:'show', model:[codes:demandes]
 	}
 
 	def edit(DemandeVisiteMusee demandeVisiteMuseeInstance) {
