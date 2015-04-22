@@ -5,33 +5,37 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'musee.label', default: 'Musee')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<title><g:message code="musee.title" /></title>
 	</head>
 	<body>
 		<a href="#list-musee" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-			</ul>
+            <div class="content">
+                <ul>
+                    <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+                </ul>
+            </div>
 		</div>
 		<div id="list-musee" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1><g:message code="musee.title" /></h1>
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
             <g:form>
                 <fieldset class="form">
-                    <div class="fieldcontain">
+                    <div class="field-inline">
                         <label for="nom">
                             <g:message code="musee.form.nom.label" default="Nom du musée :" />
                         </label>
                         <g:textField name="nom" value="${param.nom}"/>
+                    </div>
+                    <div class="field-inline">
                         <label for="rue">
                             <g:message code="musee.form.rue.label" default="Rue du musée :" />
                         </label>
                         <g:textField name="rue" value="${param.rue}"/>
                     </div>
-                    <div class="fieldcontain">
+                    <div class="field-inline">
                         <label for="codePostale">
                             <g:message code="musee.form.code.label" default="Code postal :" />
                         </label>
@@ -40,8 +44,8 @@
                                   value="${param.cp}"
                                   noSelection="${['0':'Choisir...']}"/>
                     </div>
-                    <div style="float: right">
-                        <g:actionSubmit action="search" value="Rechercher" />
+                    <div class="field-inline">
+                        <g:actionSubmit class="add-fav" action="search" value="Rechercher" />
                     </div>
                 </fieldset>
             </g:form>
@@ -49,7 +53,7 @@
                 <p class="num-result">${museeInstanceCount} <g:message code="musee.resultat.label" default="résultats" /></p>
 				<g:each in="${museeInstanceList}" status="i" var="museeInstance">
 					<div class="listing-musee">
-                        <h2>
+                        <h2 class="capital">
                             <g:link action="show" id="${museeInstance.id}">${fieldValue(bean: museeInstance, field: "nom")}</g:link>
                         </h2>
                         <p>
@@ -70,7 +74,7 @@
                         </p>
                         <p>
                             <strong><g:message code="musee.adresse.label" default="Adresse" /></strong>
-                            ${fieldValue(bean: museeInstance, field: "adresse")}
+                            <span class="capital">${fieldValue(bean: museeInstance, field: "adresse")}</span>
                         </p>
                         <p>
                             <strong><g:message code="musee.gestionnaire.label" default="Gestionnaire" /></strong>
