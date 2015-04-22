@@ -41,4 +41,8 @@ class DemandeVisite {
 			"Refusée"
 		]
 	}
+	
+	String toString(){
+		return code
+	}
 }
