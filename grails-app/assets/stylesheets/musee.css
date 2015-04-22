@@ -1,0 +1,154 @@
+
+
+body {
+    max-width: inherit;
+    background: linear-gradient(to bottom, #e6e6e6 20%, #ddd 100%);
+}
+
+#grailsLogo {
+    background: linear-gradient(#383838 30%, #2d2d2d);
+    border-bottom: 4px solid #ff0198;
+}
+#grailsLogo a {
+    margin: 0;
+}
+
+img {
+    vertical-align: top;
+}
+
+a:link, a:visited, a:hover {
+    color: #3a7fb4;
+}
+
+h1 {
+    color: #f09;
+    font-weight: bold;
+}
+
+h2 {
+    font-weight: normal;
+}
+
+.capital {
+    text-transform: lowercase;
+}
+.capital:first-letter {
+    text-transform: capitalize;
+}
+
+.content {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.nav {
+    box-shadow: 0 2px 3px #aaaaaa;
+}
+
+select {
+    min-width: 160px;
+}
+
+.field-inline {
+    display: inline-block;
+    margin-right: 30px;
+}
+.field-inline label {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+input[type="button"]:disabled, .add-fav, .add-fav:active, .add-fav:focus {
+    font-weight: 600;
+    font-size: 90%;
+    border-radius: 3px;
+    border: 0;
+}
+
+input[type="button"]:disabled {
+    color: #ccc;
+    box-shadow: 0 0 2px #ccc;
+}
+
+.add-fav {
+    background: linear-gradient(to bottom, #ff0198 0%, #af0169 91%);
+    color: #fff;
+}
+
+.num-result {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1em;
+    font-size: 70%;
+}
+
+.listing-musee {
+    margin: 0 2em 2em;
+    padding: 1em;
+    box-shadow: 0 0 5px #777;
+    background: #fff;
+}
+
+.favoris {
+    position: fixed;
+    right: 0;
+    top: 120px;
+    width: 320px;
+    background: #fff;
+    box-shadow: 0 0 10px #aaa;
+}
+
+.titled {
+    background: linear-gradient(#383838 30%, #2d2d2d);
+    color: #fff;
+    font-size: 80%;
+    font-weight: 600;
+    text-align: center;
+    padding: 5px 0;
+    margin-bottom: 8px;
+    border-bottom: 3px solid #ff0198;
+}
+
+.visit {
+    text-align: center;
+    padding: 5px 0;
+    font-size: 90%;
+}
+
+.list-fav {
+    list-style: none;
+    padding: 0 5px;
+}
+
+.list-fav form {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.list-fav li {
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+.list-fav li:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+}
+
+.list-fav input, .list-fav input:active, .list-fav input:focus {
+    font-size: 70%;
+}
+
+.fav-label {
+    display: inline-block;
+    width: 230px;
+    vertical-align: middle;
+    font-size: 80%;
+}
+
+.footer {
+    background: #efefef;
+    box-shadow: 0 0 5px #999;
+}

@@ -1,106 +1,104 @@
 
-<%@ page import="toulousemusee.Musee"%>
+<%@ page import="toulousemusee.Musee" %>
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}"
-	type="text/css">
-<meta name="layout" content="main">
-<g:set var="entityName"
-	value="${message(code: 'musee.label', default: 'Musee')}" />
-<title><g:message code="default.list.label" args="[entityName]" /></title>
-</head>
-<body>
-	<a href="#list-musee" class="skip" tabindex="-1"><g:message
-			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
-	<div class="nav" role="navigation">
-		<ul>
-			<li><a class="home" href="${createLink(uri: '/')}"><g:message
-						code="default.home.label" /></a></li>
-		</ul>
-	</div>
-	<div id="list-musee" class="content scaffold-list" role="main">
-		<h1>
-			<g:message code="default.list.label" args="[entityName]" />
-		</h1>
-		<g:if test="${flash.message}">
-			<div class="message" role="status">
-				${flash.message}
-			</div>
-		</g:if>
-		<g:form>
-			<fieldset class="searchForm">
-				<div>
-					<label for="nom" class="searchLabel"> Nom du musée contient : </label>
-					<g:textField name="nom" value="${param.nom}" class="searchInput"/>
-					<label for="rue" class="searchLabel"> La rue du musée contient : </label>
-					<g:textField name="rue" value="${param.nom}" class="searchInput"/>
-					<label for="codePostale" class="searchLabel"> Code postal : </label>
-					<g:select name="codePostale" from="${codes}" value="${param.cp}"
-						noSelection="${['0':'Choisir...']}" class="searchInput"/>
-					<g:actionSubmit action="search"
-							value="Rechercher" class="searchButton"/>
-				</div>
-			</fieldset>
-		</g:form>
-		<g:if test="${showMusee}">
-			<p style="text-align: center; font-weight: 600; margin-bottom: 1em">
-				${museeInstanceCount}
-				résulta(s)
-			</p>
-			<g:each in="${museeInstanceList}" status="i" var="museeInstance">
-				<div
-					style="margin: 0 2em 2em; padding: 1em; box-shadow: 0 0 5px #aaa">
-					<h2>
-						<g:link action="show" id="${museeInstance.id}">
-							${fieldValue(bean: museeInstance, field: "nom")}
-						</g:link>
-					</h2>
-					<p>
-						<strong><g:message code="musee.horairesOuverture.label"
-								default="Horaires" /></strong>
-						${fieldValue(bean: museeInstance, field: "horairesOuverture")}
-					</p>
-					<p>
-						<strong><g:message code="musee.telephone.label"
-								default="Téléphone" /></strong>
-						${fieldValue(bean: museeInstance, field: "telephone")}
-					</p>
-					<p>
-						<strong><g:message code="musee.accesBus.label"
-								default="Accès bus" /></strong>
-						${fieldValue(bean: museeInstance, field: "accesBus")}
-					</p>
-					<p>
-						<strong><g:message code="musee.accesMetro.label"
-								default="Accès métro" /></strong>
-						${fieldValue(bean: museeInstance, field: "accesMetro")}
-					</p>
-					<p>
-						<strong><g:message code="musee.adresse.label"
-								default="Adresse" /></strong>
-						${fieldValue(bean: museeInstance, field: "adresse")}
-					</p>
-					<p>
-						<strong><g:message code="musee.gestionnaire.label"
-								default="Gestionnaire" /></strong>
-						${fieldValue(bean: museeInstance, field: "gestionnaire")}
-					</p>
-					<g:if test="${museeInstanceCount > 2}">
-						<div style="float: right">
-							<g:form url="[action: 'listeMuseePreferes']">
-								<g:actionSubmit name="addToMusee"
-									value="Ajouter à ma liste de musées" />
-							</g:form>
-						</div>
-					</g:if>
-				</div>
-			</g:each>
+	<head>
+		<meta name="layout" content="main">
+		<g:set var="entityName" value="${message(code: 'musee.label', default: 'Musee')}" />
+		<title><g:message code="musee.title" /></title>
+	</head>
+	<body>
+		<a href="#list-musee" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		<div class="nav" role="navigation">
+            <div class="content">
+                <ul>
+                    <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+                </ul>
+            </div>
+		</div>
+		<div id="list-musee" class="content scaffold-list" role="main">
+			<h1><g:message code="musee.title" /></h1>
+			<g:if test="${flash.message}">
+				<div class="message" role="status">${flash.message}</div>
+			</g:if>
+            <g:form>
+                <fieldset class="form">
+                    <div class="field-inline">
+                        <label for="nom">
+                            <g:message code="musee.form.nom.label" default="Nom du musée :" />
+                        </label>
+                        <g:textField name="nom" value="${param.nom}"/>
+                    </div>
+                    <div class="field-inline">
+                        <label for="rue">
+                            <g:message code="musee.form.rue.label" default="Rue du musée :" />
+                        </label>
+                        <g:textField name="rue" value="${param.rue}"/>
+                    </div>
+                    <div class="field-inline">
+                        <label for="codePostale">
+                            <g:message code="musee.form.code.label" default="Code postal :" />
+                        </label>
+                        <g:select name="codePostale"
+                                  from="${codes}"
+                                  value="${param.cp}"
+                                  noSelection="${['0':'Choisir...']}"/>
+                    </div>
+                    <div class="field-inline">
+                        <g:actionSubmit class="add-fav" action="search" value="Rechercher" />
+                    </div>
+                </fieldset>
+            </g:form>
+            <g:if test="${showMusee}">
+                <p class="num-result">${museeInstanceCount} <g:message code="musee.resultat.label" default="résultats" /></p>
+				<g:each in="${museeInstanceList}" status="i" var="museeInstance">
+					<div class="listing-musee">
+                        <h2 class="capital">
+                            <g:link action="show" id="${museeInstance.id}">${fieldValue(bean: museeInstance, field: "nom")}</g:link>
+                        </h2>
+                        <p>
+                            <strong><g:message code="musee.horairesOuverture.label" default="Horaires" /></strong>
+                            ${fieldValue(bean: museeInstance, field: "horairesOuverture")}
+                        </p>
+                        <p>
+                            <strong><g:message code="musee.telephone.label" default="Téléphone" /></strong>
+                            ${fieldValue(bean: museeInstance, field: "telephone")}
+                        </p>
+                        <p>
+                            <strong><g:message code="musee.accesBus.label" default="Accès bus" /></strong>
+                            ${fieldValue(bean: museeInstance, field: "accesBus")}
+                        </p>
+                        <p>
+                            <strong><g:message code="musee.accesMetro.label" default="Accès métro" /></strong>
+                            ${fieldValue(bean: museeInstance, field: "accesMetro")}
+                        </p>
+                        <p>
+                            <strong><g:message code="musee.adresse.label" default="Adresse" /></strong>
+                            <span class="capital">${fieldValue(bean: museeInstance, field: "adresse")}</span>
+                        </p>
+                        <p>
+                            <strong><g:message code="musee.gestionnaire.label" default="Gestionnaire" /></strong>
+                            ${fieldValue(bean: museeInstance, field: "gestionnaire")}
+                        </p>
+                        <g:if test="${museeInstanceCount > 2}">
+                            <div id="actionFav_${museeInstance.id}" style="float: right">
+                                <g:if test="${session.getAttribute("favoris") && session.getAttribute("favoris").get(museeInstance.id)}">
+                                    <input id="added_${museeInstance.id}" disabled="disabled" type="button" value="Ajouter à ma liste de musées"/>
+                                </g:if>
+                                <g:else>
+                                    <g:render template="formAddFavoris" model="['id': museeInstance.id, 'nom': fieldValue(bean: museeInstance, field: 'nom')]" />
+                                </g:else>
+                            </div>
+                        </g:if>
+                    </div>
+				</g:each>
 			<div class="pagination">
-				<g:paginate total="${museeInstanceCount ?: 0}" max="5" maxsteps="5"
-					params="${[nom: param.nom, cp: param.cp, rue: param.rue]}" />
+				<g:paginate total="${museeInstanceCount ?: 0}" max="5" params="${[nom: param.nom, cp: param.cp, rue: param.rue]}" />
 			</div>
-		</g:if>
-	</div>
-</body>
+            </g:if>
+		</div>
+        <div id="favoris">
+            <g:render template="favorislist"/>
+        </div>
+	</body>
 </html>

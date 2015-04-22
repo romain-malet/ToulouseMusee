@@ -17,7 +17,11 @@
 		<g:layoutHead/>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><g:link controller="musee" action="index"><asset:image src="logo_mairie.jpg" alt="Grails"/></g:link></div>
+		<div id="grailsLogo" role="banner">
+            <div class="content">
+                <g:link controller="musee" action="index"><asset:image src="logo_mairie.jpg" alt="Grails"/></g:link>
+            </div>
+        </div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>

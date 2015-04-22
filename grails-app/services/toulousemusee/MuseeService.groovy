@@ -1,6 +1,5 @@
 package toulousemusee
 
-import grails.gorm.PagedResultList
 import grails.transaction.Transactional
 import grails.gorm.DetachedCriteria
 

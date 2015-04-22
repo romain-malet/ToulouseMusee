@@ -115,7 +115,3 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
-
-elasticSearch {
-	datastoreImpl = 'hibernateDatastore'
-}
