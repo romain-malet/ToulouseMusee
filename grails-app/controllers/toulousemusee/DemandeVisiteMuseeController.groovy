@@ -42,7 +42,7 @@ class DemandeVisiteMuseeController {
 			DemandeVisiteMusee demandeVisiteMusee = new DemandeVisiteMusee(demandeVisite:demandeVisite,
 			musee:musee, dateDemande:date)
 			demandeVisiteMusee.save flush:true
-			demandes.put(demandeVisiteMusee)
+			demandes.add(demandeVisiteMusee)
 		}
 		session.setAttribute('demandes', demandes)
 		respond codes, view:'show', model:[codes:codes]
