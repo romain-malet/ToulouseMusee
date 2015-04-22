@@ -40,11 +40,10 @@ class DemandeVisiteMuseeController {
 			codes.put(musee, demandeVisite.code)
 			DemandeVisiteMusee demandeVisiteMusee = new DemandeVisiteMusee(demandeVisite:demandeVisite,
 			musee:musee, dateDemande:date)
+			demandeVisiteMusee.save flush:true
 		}
-
-		demandeVisiteMusee.save flush:true
-
-		respond DemandeVisiteMuseeInstance, view:'show', model:[codes:codes]
+		log.info codes
+		respond codes, view:'show', model:[codes:codes]
 	}
 
 	def edit(DemandeVisiteMusee demandeVisiteMuseeInstance) {
