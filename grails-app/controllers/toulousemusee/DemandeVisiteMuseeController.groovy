@@ -17,6 +17,13 @@ class DemandeVisiteMuseeController {
 		respond DemandeVisiteMusee.list(params), model:[demandeVisiteMuseeInstanceCount: DemandeVisiteMusee.count()]
 	}
 
+	def list(){
+		def demandes = DemandeVisiteMusee.list()
+		return [demandes: demandes,
+			demandesCount: demandes.size(),
+			]
+	}
+
 	def show(DemandeVisiteMusee demandeVisiteMuseeInstance) {
 		respond demandeVisiteMuseeInstance
 	}
@@ -40,7 +47,7 @@ class DemandeVisiteMuseeController {
 
 		List<DemandeVisiteMusee> demandes = demandeVisiteMuseeService.save(params.dateDebutPeriode,
 				params.dateFinPeriode, params.nbPersonne as int, musees.keySet().asList())
-		
+
 		session.setAttribute("favoris", null)
 		session.setAttribute('demandes', demandes)
 		respond demandes, view:'show', model:[codes:demandes]
