@@ -18,10 +18,8 @@ class DemandeVisiteMuseeController {
 	}
 
 	def list(){
-		def demandes = DemandeVisiteMusee.list()
-		return [demandes: demandes,
-			demandesCount: demandes.size(),
-			]
+		def demande = demandeVisiteMuseeService.getDemandeVisite(params.code)
+		return [demande: demande]
 	}
 
 	def show(DemandeVisiteMusee demandeVisiteMuseeInstance) {

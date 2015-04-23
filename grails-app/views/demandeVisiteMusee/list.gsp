@@ -28,57 +28,54 @@
 				${flash.message}
 			</div>
 		</g:if>
+		<g:if test="${params.code && !demande}">
+			<ul role="alert" class="errors">
+				<li data-field-id="code"><g:message
+						code="demandeVisite.codeError" default="Le code n'est pas valide!" />
+				</li>
+			</ul>
+		</g:if>
 		<g:form>
 			<fieldset class="form">
 				<div class="field-inline">
 					<label for="nom"> <g:message
 							code="demandeVisiteMusee.form.code.label" default="Code :" />
 					</label>
-					<g:textField name="nom" value="${params.code}" />
+					<g:textField name="code" value="${params.code}" />
 				</div>
 				<div class="field-inline">
 					<g:actionSubmit class="add-fav" action="list" value="Get" />
 				</div>
 			</fieldset>
 		</g:form>
-		<g:if test="${demandes}">
-			<p class="num-result">
-				${demandesCount}
-				<g:message code="demandeVisiteMusee.resultat.label"
-					default="résultats" />
-			</p>
-			<g:each in="${demandes}" status="i" var="demandeInstance">
-				<div class="listing-musee">
-					<strong><g:message
-							code="demandeVisite.code.label"
-							default="Code : " /></strong>
-						<g:link controller="demandeVisite" action="show"
-							id="${demandeInstance.demandeVisite.id}">
-							${fieldValue(bean: demandeInstance.demandeVisite, field: "code")}
-						</g:link>
+		<g:if test="${demande}">
+			<div class="listing-musee">
+				<p>
+					<strong><g:message code="demandeVisite.statut.label"
+							default="Statut : " /></strong>
+					${fieldValue(bean: demande, field: "statut")}
+				</p>
+				<g:if test="${demande.statut == "Confirmée"}">
 					<p>
 						<strong><g:message
 								code="demandeVisite.dateDebutPeriode.label"
 								default="Début de la période : " /></strong>
-						${fieldValue(bean: demandeInstance.demandeVisite, field: "dateDebutPeriode")}
+						${fieldValue(bean: demande, field: "dateDebutPeriode")}
 					</p>
 					<p>
 						<strong><g:message
 								code="demandeVisite.dateFinPeriode.label"
 								default="Fin de la période : " /></strong>
-						${fieldValue(bean: demandeInstance.demandeVisite, field: "dateFinPeriode")}
+						${fieldValue(bean: demande, field: "dateFinPeriode")}
 					</p>
+				</g:if>
+				<g:elseif test="${demande.statut == "Refusée"}">
 					<p>
-						<strong><g:message code="musee.label" default="Musée : " /></strong>
-						${fieldValue(bean: demandeInstance.musee, field: "nom")}
+						<g:message code="demandeVisite.noGuide"
+							default="Aucun guide disponible sur cette période" />
 					</p>
-					<p>
-						<strong><g:message code="demandeVisite.statut.label"
-								default="Statut : " /></strong>
-						${fieldValue(bean: demandeInstance.demandeVisite, field: "statut")}
-					</p>
-				</div>
-			</g:each>
+				</g:elseif>
+			</div>
 		</g:if>
 	</div>
 </body>

@@ -24,6 +24,10 @@ public class DemandeVisiteMuseeService {
 		}
 		return demandes
 	}
+	
+	DemandeVisite getDemandeVisite(String code){
+		return DemandeVisite.findByCode(code)
+	}
 
 	DemandeVisite createDemandeVisite(Date debut, Date fin, int nbPersonne){
 		String code = getNextCode()
