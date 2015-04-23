@@ -23,7 +23,7 @@
 			prochainement.</p>
 		<p>
 			Voici vos codes :
-			${codes}
+			${code}
 		</p>
 	</div>
 </body>

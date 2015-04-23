@@ -10,15 +10,13 @@ import java.util.Map;
 @Transactional
 public class DemandeVisiteMuseeService {
 
-	List save(Date debut, Date fin, int nbPersonne, List<Long> musees){
+	List save(DemandeVisite demandeVisite, List<Long> musees){
 		List demandes = new ArrayList<DemandeVisiteMusee>();
 		Date date = new Date()
 		Map codes = new HashMap<Musee, String>()
+		demandeVisite.save(flush:true)
 		for (long museeId : musees){
 			Musee musee = Musee.get(museeId)
-			DemandeVisite demandeVisite = createDemandeVisite(debut, fin, nbPersonne)
-			demandeVisite.save(flush:true)
-			codes.put(musee, demandeVisite.code)
 			DemandeVisiteMusee demandeVisiteMusee = new DemandeVisiteMusee(demandeVisite:demandeVisite,
 			musee:musee, dateDemande:date)
 			demandeVisiteMusee.save flush:true, failOnErrors:true

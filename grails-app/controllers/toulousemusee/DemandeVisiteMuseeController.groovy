@@ -43,14 +43,14 @@ class DemandeVisiteMuseeController {
 			respond demandeVisite, view:'create', model:["demandeViste": demandeVisite]
 			return
 		}
+		String code = demandeVisite.code
 		Map musees = session.getAttribute("favoris")
 
-		List<DemandeVisiteMusee> demandes = demandeVisiteMuseeService.save(params.dateDebutPeriode,
-				params.dateFinPeriode, params.nbPersonne as int, musees.keySet().asList())
+		List<DemandeVisiteMusee> demandes = demandeVisiteMuseeService.save(demandeVisite, musees.keySet().asList())
 
 		session.setAttribute("favoris", null)
 		session.setAttribute('demandes', demandes)
-		respond demandes, view:'show', model:[codes:demandes]
+		respond demandes, view:'show', model:[code:code]
 	}
 
 	def edit(DemandeVisiteMusee demandeVisiteMuseeInstance) {
