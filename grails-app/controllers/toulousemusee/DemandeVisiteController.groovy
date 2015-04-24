@@ -31,7 +31,7 @@ class DemandeVisiteController {
 				params.error = true
 			else{
 				session.setAttribute("code", params.code)
-				show(demande)
+				redirect(action: 'show', id: demande.id)
 			}
 		}
 		return
