@@ -1,5 +1,7 @@
 package toulousemusee
 
+import java.util.Date;
+
 import grails.test.mixin.*
 import spock.lang.*
 
@@ -26,6 +28,23 @@ class DemandeVisiteMuseeServiceIntegrationSpec extends Specification {
 		
 		then:"A visit requests are created"
 			DemandeVisite.count() == 1
+			DemandeVisiteMusee.count() == 2
 			demandes.size() == 2
+	}
+	
+	void "Test the create"(){
+		given:
+			Date debut = new Date()
+			Date fin  = new Date() + 1
+			int nbPersonne = 4
+		when:
+			DemandeVisite demande = demandeVisiteMuseeService.createDemandeVisite(debut, fin, nbPersonne)
+		then:
+			!demande
+			demande.code == "CODE-1"
+			demande.dateDebutPeriode == debut
+			demande.dateFinPeriode == fin
+			demande.nbPersonne == nbPersonne
+			demande.statut == "En cours de traitement"
 	}
 }

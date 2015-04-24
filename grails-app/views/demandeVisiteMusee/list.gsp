@@ -55,6 +55,17 @@
 							default="Statut : " /></strong>
 					${fieldValue(bean: demande, field: "statut")}
 				</p>
+				${demande.demandesVisitesMusees}
+				<strong><g:message code="musees.label" default="Musée(s)" />
+					: </strong>
+				<ol>
+					<g:each in="${demande.demandesVisitesMusees}" status="i"
+						var="demandeVisite">
+						<li>
+							${demandeVisite.musee.nom}
+						</li>
+					</g:each>
+				</ol>
 				<g:if test="${demande.statut == "Confirmée"}">
 					<p>
 						<strong><g:message

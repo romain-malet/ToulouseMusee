@@ -9,8 +9,7 @@ class DemandeVisite {
 	String statut
 
 	static hasMany = [
-		demandesVisitesMusees: DemandeVisiteMusee,
-		musees: Musee
+		demandesVisitesMusees: DemandeVisiteMusee
 	]
 
 	static constraints = {
@@ -23,6 +22,10 @@ class DemandeVisite {
 			"Confirmée",
 			"Refusée"
 		]
+	}
+	
+	static mapping = {
+		demandesVisitesMusees fetch: 'join'
 	}
 
 	String toString(){
