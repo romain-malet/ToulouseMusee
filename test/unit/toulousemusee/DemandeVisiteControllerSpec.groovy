@@ -11,18 +11,11 @@ class DemandeVisiteControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
-    }
-
-    void "Test the index action returns the correct model"() {
-
-        when:"The index action is executed"
-            controller.index()
-
-        then:"The model is correct"
-            !model.demandeVisiteInstanceList
-            model.demandeVisiteInstanceCount == 0
+        params["code"] = 'CODE-0'
+		params["dateDebutPeriode"] = new Date()
+		params["dateFinPeriode"] = new Date() + 1
+		params["nbPersonne"] = 5
+		params["statut"] = "En cours de traitement"
     }
 
     void "Test the create action returns the correct model"() {
