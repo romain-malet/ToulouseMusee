@@ -13,9 +13,8 @@ class DemandeVisiteController {
 	DemandeVisiteService demandeVisiteService
 
 	def show(DemandeVisite demandeVisiteInstance) {
-		List<String> codes = session.getAttribute("codes")
-		codes.size()
-		if(codes?.contains(demandeVisiteInstance?.code)){
+		String code = session.getAttribute("code")
+		if(code == demandeVisiteInstance?.code){
 			def demandes = demandeVisiteService.getDemandeVisiteMusees(demandeVisiteInstance)
 			respond demandeVisiteInstance, view:'show', model:['demandesVisitesMusees':demandes]
 		
@@ -30,8 +29,10 @@ class DemandeVisiteController {
 			DemandeVisite demande = demandeVisiteService.getDemandeVisite(params.code)
 			if (!demande)
 				params.error = true
-			else
+			else{
+				session.setAttribute("code", params.code)
 				show(demande)
+			}
 		}
 		return
 	}
@@ -59,11 +60,6 @@ class DemandeVisiteController {
 		List<DemandeVisiteMusee> demandes = demandeVisiteService.save(demandeVisite, musees.keySet().asList())
 
 		session.setAttribute("favoris", null)
-		def codes = session.getAttribute("codes")
-		if(!codes)
-			codes = new ArrayList<String>()
-		codes.add(code)
-		session.setAttribute("codes", codes)
 		respond demandes, view:'create', model:[code:code]
 	}
 
