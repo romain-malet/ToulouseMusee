@@ -23,10 +23,6 @@ class DemandeVisite {
 			"Refusée"
 		]
 	}
-	
-	static mapping = {
-		demandesVisitesMusees fetch: 'join'
-	}
 
 	String toString(){
 		return code
