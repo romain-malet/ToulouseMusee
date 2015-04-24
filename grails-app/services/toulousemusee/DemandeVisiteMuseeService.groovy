@@ -44,9 +44,13 @@ public class DemandeVisiteMuseeService {
 	}
 
 	String getNextCode(){
-		DemandeVisite demande = DemandeVisite.find("from DemandeVisite order by id desc")
-		if(demande){
-			return "CODE-${demande.id + 1}" ;
+		def code = DemandeVisite.createCriteria().get {
+            projections {
+                max "id"
+            }
+        }
+		if(code) {
+			return "CODE-${code + 1}" ;
 		} else {
 			return "CODE-1"
 		}
