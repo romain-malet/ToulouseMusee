@@ -1,5 +1,7 @@
 package toulousemusee
 
+import java.sql.Timestamp
+
 class DemandeVisite {
 
 	String code
@@ -7,6 +9,7 @@ class DemandeVisite {
 	Date dateFinPeriode
 	int nbPersonne
 	String statut
+    Timestamp version
 
 	static hasMany = [
 		demandesVisitesMusees: DemandeVisiteMusee
