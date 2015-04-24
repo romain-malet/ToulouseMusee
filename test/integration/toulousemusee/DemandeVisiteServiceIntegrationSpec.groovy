@@ -5,9 +5,9 @@ import java.util.Date;
 import grails.test.mixin.*
 import spock.lang.*
 
-class DemandeVisiteMuseeServiceIntegrationSpec extends Specification {
+class DemandeVisiteServiceIntegrationSpec extends Specification {
 	
-	DemandeVisiteService demandeVisiteMuseeService
+	DemandeVisiteService demandeVisiteService
 
 	void "Test the save action"() {
 
@@ -24,7 +24,7 @@ class DemandeVisiteMuseeServiceIntegrationSpec extends Specification {
 			musees.add(1L)
 			musees.add(2L)
 		when:"The save action is executed"
-			List<DemandeVisiteMusee> demandes = demandeVisiteMuseeService.save(demande, musees)
+			List<DemandeVisiteMusee> demandes = demandeVisiteService.save(demande, musees)
 		
 		then:"A visit requests are created"
 			DemandeVisite.count() == 1
@@ -38,7 +38,7 @@ class DemandeVisiteMuseeServiceIntegrationSpec extends Specification {
 			Date fin  = new Date() + 1
 			int nbPersonne = 4
 		when:
-			DemandeVisite demande = demandeVisiteMuseeService.createDemandeVisite(debut, fin, nbPersonne)
+			DemandeVisite demande = demandeVisiteService.createDemandeVisite(debut, fin, nbPersonne)
 		then:
 			!demande
 			demande.code == "CODE-1"
