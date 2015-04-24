@@ -9,10 +9,12 @@
 </head>
 <body>
 	<div class="nav" role="navigation">
-		<ul>
-			<li><a class="home" href="${createLink(uri: '/')}"><g:message
-						code="default.home.label" /></a></li>
-		</ul>
+        <div class="content">
+            <ul>
+                <li><a class="home" href="${createLink(uri: '/')}"><g:message
+                            code="default.home.label" /></a></li>
+            </ul>
+        </div>
 	</div>
 	<div id="create-demandeVisite" class="content scaffold-create"
 		role="main">
