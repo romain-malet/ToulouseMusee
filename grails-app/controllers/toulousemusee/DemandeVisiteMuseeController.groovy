@@ -16,7 +16,7 @@ class DemandeVisiteMuseeController {
 		def demande = demandeVisiteMuseeService.getDemandeVisite(params.code)
 		if(demande)
 			session.setAttribute("code", demande.id)
-		return [demande: demande]
+		return [demandes: demande]
 	}
 
 	def show(DemandeVisiteMusee demandeVisiteMuseeInstance) {

@@ -28,7 +28,7 @@
 				${flash.message}
 			</div>
 		</g:if>
-		<g:if test="${params.code && !demande}">
+		<g:if test="${params.code && demandes.isEmpty()}">
 			<ul role="alert" class="errors">
 				<li data-field-id="code"><g:message
 						code="demandeVisite.codeError" default="Le code n'est pas valide!" />
@@ -48,39 +48,38 @@
 				</div>
 			</fieldset>
 		</g:form>
-		<g:if test="${demande}">
+		<g:if test="${demandes.size() > 0}">
 			<div class="listing-musee">
 				<p>
 					<strong><g:message code="demandeVisite.statut.label"
 							default="Statut : " /></strong>
-					${fieldValue(bean: demande, field: "statut")}
+					${fieldValue(bean: demandes[0].demandeVisite, field: "statut")}
 				</p>
-				${demande.demandesVisitesMusees}
 				<strong><g:message code="musees.label" default="Musée(s)" />
 					: </strong>
 				<ol>
-					<g:each in="${demande.demandesVisitesMusees}" status="i"
+					<g:each in="${demandes}" status="i"
 						var="demandeVisite">
 						<li>
 							${demandeVisite.musee.nom}
 						</li>
 					</g:each>
 				</ol>
-				<g:if test="${demande.statut == "Confirmée"}">
+				<g:if test="${demandes[0].demandeVisite.statut == "Confirmée"}">
 					<p>
 						<strong><g:message
 								code="demandeVisite.dateDebutPeriode.label"
 								default="Début de la période : " /></strong>
-						${fieldValue(bean: demande, field: "dateDebutPeriode")}
+						${fieldValue(bean: demandes[0].demandeVisite, field: "dateDebutPeriode")}
 					</p>
 					<p>
 						<strong><g:message
 								code="demandeVisite.dateFinPeriode.label"
 								default="Fin de la période : " /></strong>
-						${fieldValue(bean: demande, field: "dateFinPeriode")}
+						${fieldValue(bean: demandes[0].demandeVisite, field: "dateFinPeriode")}
 					</p>
 				</g:if>
-				<g:elseif test="${demande.statut == "Refusée"}">
+				<g:elseif test="${demandes[0].demandeVisite.statut == "Refusée"}">
 					<p>
 						<g:message code="demandeVisite.noGuide"
 							default="Aucun guide disponible sur cette période" />
