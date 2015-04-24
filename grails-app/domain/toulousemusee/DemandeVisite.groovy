@@ -8,15 +8,6 @@ class DemandeVisite {
 	int nbPersonne
 	String statut
 
-	String getNextCode(){
-		DemandeVisite demande = DemandeVisite.find("from DemandeVisite order by id desc")
-		if(demande){
-			return "CODE-${demande.id + 1}" ;
-		} else {
-			return "CODE-0"
-		}
-	}
-
 	static hasMany = [
 		demandesVisitesMusees: DemandeVisiteMusee,
 		musees: Musee
