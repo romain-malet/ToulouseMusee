@@ -24,9 +24,13 @@ public class DemandeVisiteMuseeService {
 		}
 		return demandes
 	}
-	
-	DemandeVisite getDemandeVisite(String code){
-		return DemandeVisite.findByCode(code)
+
+	List<DemandeVisiteMusee> getDemandeVisite(String code){
+		if(code != null)
+			code = code.trim()
+		DemandeVisite demande = DemandeVisite.findByCode(code)
+		def demandes = DemandeVisiteMusee.findAllByDemandeVisite(demande)
+		return demandes
 	}
 
 	DemandeVisite createDemandeVisite(Date debut, Date fin, int nbPersonne){
@@ -44,7 +48,7 @@ public class DemandeVisiteMuseeService {
 		if(demande){
 			return "CODE-${demande.id + 1}" ;
 		} else {
-			return "CODE-0"
+			return "CODE-1"
 		}
 	}
 }

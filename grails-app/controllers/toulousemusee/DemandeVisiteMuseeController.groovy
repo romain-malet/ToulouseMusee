@@ -10,16 +10,13 @@ class DemandeVisiteMuseeController {
 
 	DemandeVisiteMuseeService demandeVisiteMuseeService
 
-	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
-	def index(Integer max) {
-		params.max = Math.min(max ?: 10, 100)
-		respond DemandeVisiteMusee.list(params), model:[demandeVisiteMuseeInstanceCount: DemandeVisiteMusee.count()]
-	}
+	static allowedMethods = [save: "POST", update: "PUT"]
 
 	def list(){
 		def demande = demandeVisiteMuseeService.getDemandeVisite(params.code)
-		return [demande: demande]
+		if(demande)
+			session.setAttribute("code", demande.id)
+		return [demandes: demande]
 	}
 
 	def show(DemandeVisiteMusee demandeVisiteMuseeInstance) {
@@ -44,10 +41,10 @@ class DemandeVisiteMuseeController {
 		String code = demandeVisite.code
 		Map musees = session.getAttribute("favoris")
 
+		log.debug musees
 		List<DemandeVisiteMusee> demandes = demandeVisiteMuseeService.save(demandeVisite, musees.keySet().asList())
 
 		session.setAttribute("favoris", null)
-		session.setAttribute('demandes', demandes)
 		respond demandes, view:'show', model:[code:code]
 	}
 
