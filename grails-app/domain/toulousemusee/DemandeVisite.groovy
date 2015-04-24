@@ -18,8 +18,7 @@ class DemandeVisite {
 	}
 
 	static hasMany = [
-		demandesVisitesMusees: DemandeVisiteMusee,
-		musees: Musee
+		demandesVisitesMusees: DemandeVisiteMusee
 	]
 
 	static constraints = {
