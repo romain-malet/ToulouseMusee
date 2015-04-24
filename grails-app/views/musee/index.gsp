@@ -16,7 +16,7 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message
 							code="default.home.label" /></a></li>
-				<li><g:link controller="demandeVisiteMusee" action="list">
+				<li><g:link controller="demandeVisite" action="index">
 						<g:message code="mesDemandes" default="Mes demandes" />
 					</g:link></li>
 			</ul>

@@ -8,15 +8,13 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class DemandeVisiteMuseeController {
 
-	DemandeVisiteMuseeService demandeVisiteMuseeService
+	DemandeVisiteService demandeVisiteMuseeService
 
 	static allowedMethods = [save: "POST", update: "PUT"]
 
 	def list(){
-		def demande = demandeVisiteMuseeService.getDemandeVisite(params.code)
-		if(demande)
-			session.setAttribute("code", demande.id)
-		return [demandes: demande]
+		def demandes = demandeVisiteMuseeService.getDemandeVisite(params.code)
+		return [demandes: demandes]
 	}
 
 	def show(DemandeVisiteMusee demandeVisiteMuseeInstance) {
@@ -39,6 +37,7 @@ class DemandeVisiteMuseeController {
 			return
 		}
 		String code = demandeVisite.code
+		
 		Map musees = session.getAttribute("favoris")
 
 		log.debug musees

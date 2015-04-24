@@ -7,7 +7,7 @@ import spock.lang.*
 
 class DemandeVisiteMuseeServiceIntegrationSpec extends Specification {
 	
-	DemandeVisiteMuseeService demandeVisiteMuseeService
+	DemandeVisiteService demandeVisiteMuseeService
 
 	void "Test the save action"() {
 

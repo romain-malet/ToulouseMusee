@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Transactional
-public class DemandeVisiteMuseeService {
+public class DemandeVisiteService {
 
 	List save(DemandeVisite demandeVisite, List<Long> musees){
 		List demandes = new ArrayList<DemandeVisiteMusee>();
@@ -25,12 +25,14 @@ public class DemandeVisiteMuseeService {
 		return demandes
 	}
 
-	List<DemandeVisiteMusee> getDemandeVisite(String code){
+	DemandeVisite getDemandeVisite(String code){
 		if(code != null)
 			code = code.trim()
-		DemandeVisite demande = DemandeVisite.findByCode(code)
-		def demandes = DemandeVisiteMusee.findAllByDemandeVisite(demande)
-		return demandes
+		return DemandeVisite.findByCode(code)
+	}
+	
+	List getDemandeVisiteMusees(DemandeVisite demande){
+		return DemandeVisiteMusee.findAllByDemandeVisite(demande)
 	}
 
 	DemandeVisite createDemandeVisite(Date debut, Date fin, int nbPersonne){

@@ -8,101 +8,127 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class DemandeVisiteController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond DemandeVisite.list(params), model:[demandeVisiteInstanceCount: DemandeVisite.count()]
-    }
+	DemandeVisiteService demandeVisiteService
 
-    def show(DemandeVisite demandeVisiteInstance) {
-		def code = session.getAttribute("code")
-		if(code == demandeVisiteInstance.id)
-        	respond demandeVisiteInstance
+	def show(DemandeVisite demandeVisiteInstance) {
+		List<String> codes = session.getAttribute("codes")
+		codes.size()
+		if(codes?.contains(demandeVisiteInstance?.code)){
+			def demandes = demandeVisiteService.getDemandeVisiteMusees(demandeVisiteInstance)
+			respond demandeVisiteInstance, view:'show', model:['demandesVisitesMusees':demandes]
+		
+			}
 		else
-			return notFound()
-    }
+			redirect action:"index"
+	}
 
-    def create() {
-        respond new DemandeVisite(params)
-    }
+	def index(){
+		if (params.code) {
+			log.debug params.code
+			DemandeVisite demande = demandeVisiteService.getDemandeVisite(params.code)
+			if (!demande)
+				params.error = true
+			else
+				show(demande)
+		}
+		return
+	}
 
-    @Transactional
-    def save(DemandeVisite demandeVisiteInstance) {
-        if (demandeVisiteInstance == null) {
-            notFound()
-            return
-        }
+	def create() {
+		respond new DemandeVisite(params)
+	}
 
-        if (demandeVisiteInstance.hasErrors()) {
-            respond demandeVisiteInstance.errors, view:'create'
-            return
-        }
+	@Transactional
+	def save() {
+		DemandeVisite demandeVisite = demandeVisiteService.createDemandeVisite(
+				params.dateDebutPeriode,
+				params.dateFinPeriode,
+				params.nbPersonne as int)
 
-        demandeVisiteInstance.save flush:true
+		if(!demandeVisite.validate()){
+			respond demandeVisite, view:'create', model:["demandeViste": demandeVisite]
+			return
+		}
+		String code = demandeVisite.code
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'demandeVisite.label', default: 'DemandeVisite'), demandeVisiteInstance.id])
-                redirect demandeVisiteInstance
-            }
-            '*' { respond demandeVisiteInstance, [status: CREATED] }
-        }
-    }
+		Map musees = session.getAttribute("favoris")
 
-    def edit(DemandeVisite demandeVisiteInstance) {
-        respond demandeVisiteInstance
-    }
+		log.debug musees
+		List<DemandeVisiteMusee> demandes = demandeVisiteService.save(demandeVisite, musees.keySet().asList())
 
-    @Transactional
-    def update(DemandeVisite demandeVisiteInstance) {
-        if (demandeVisiteInstance == null) {
-            notFound()
-            return
-        }
+		session.setAttribute("favoris", null)
+		def codes = session.getAttribute("codes")
+		if(!codes)
+			codes = new ArrayList<String>()
+		codes.add(code)
+		session.setAttribute("codes", codes)
+		respond demandes, view:'create', model:[code:code]
+	}
 
-        if (demandeVisiteInstance.hasErrors()) {
-            respond demandeVisiteInstance.errors, view:'edit'
-            return
-        }
+	def edit(DemandeVisite demandeVisiteInstance) {
+		respond demandeVisiteInstance
+	}
 
-        demandeVisiteInstance.save flush:true
+	@Transactional
+	def update(DemandeVisite demandeVisiteInstance) {
+		if (demandeVisiteInstance == null) {
+			notFound()
+			return
+		}
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'DemandeVisite.label', default: 'DemandeVisite'), demandeVisiteInstance.id])
-                redirect demandeVisiteInstance
-            }
-            '*'{ respond demandeVisiteInstance, [status: OK] }
-        }
-    }
+		if (demandeVisiteInstance.hasErrors()) {
+			respond demandeVisiteInstance.errors, view:'edit'
+			return
+		}
 
-    @Transactional
-    def delete(DemandeVisite demandeVisiteInstance) {
+		demandeVisiteInstance.save flush:true
 
-        if (demandeVisiteInstance == null) {
-            notFound()
-            return
-        }
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.updated.message', args: [
+					message(code: 'DemandeVisite.label', default: 'DemandeVisite'),
+					demandeVisiteInstance.id
+				])
+				redirect demandeVisiteInstance
+			}
+			'*'{ respond demandeVisiteInstance, [status: OK] }
+		}
+	}
 
-        demandeVisiteInstance.delete flush:true
+	@Transactional
+	def delete(DemandeVisite demandeVisiteInstance) {
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'DemandeVisite.label', default: 'DemandeVisite'), demandeVisiteInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
-    }
+		if (demandeVisiteInstance == null) {
+			notFound()
+			return
+		}
 
-    protected void notFound() {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'demandeVisite.label', default: 'DemandeVisite'), params.id])
-                redirect action: "index", method: "GET"
-            }
-            '*'{ render status: NOT_FOUND }
-        }
-    }
+		demandeVisiteInstance.delete flush:true
+
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.deleted.message', args: [
+					message(code: 'DemandeVisite.label', default: 'DemandeVisite'),
+					demandeVisiteInstance.id
+				])
+				redirect action:"index", method:"GET"
+			}
+			'*'{ render status: NO_CONTENT }
+		}
+	}
+
+	protected void notFound() {
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.not.found.message', args: [
+					message(code: 'demandeVisite.label', default: 'DemandeVisite'),
+					params.id
+				])
+				redirect action: "index", method: "GET"
+			}
+			'*'{ render status: NOT_FOUND }
+		}
+	}
 }

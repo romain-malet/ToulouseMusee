@@ -3,25 +3,23 @@
 <head>
 <meta name="layout" content="main">
 <g:set var="entityName"
-	value="${message(code: 'demandeVisiteMusee.label', default: 'DemandeVisiteMusee')}" />
+	value="${message(code: 'demandeVisite.label', default: 'Demande de visite')}" />
 <title><g:message code="default.create.label"
 		args="[entityName]" /></title>
 </head>
 <body>
-	<a href="#create-demandeVisiteMusee" class="skip" tabindex="-1"><g:message
-			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 	<div class="nav" role="navigation">
 		<ul>
 			<li><a class="home" href="${createLink(uri: '/')}"><g:message
 						code="default.home.label" /></a></li>
 		</ul>
 	</div>
-	<div id="create-demandeVisiteMusee" class="content scaffold-create"
+	<div id="create-demandeVisite" class="content scaffold-create"
 		role="main">
+		<g:if test="${flash.message}">
 		<h1>
 			<g:message code="default.create.label" args="[entityName]" />
 		</h1>
-		<g:if test="${flash.message}">
 			<div class="message" role="status">
 				${flash.message}
 			</div>
@@ -37,7 +35,7 @@
 				</ul>
 			</g:hasErrors>
 			<g:if test="${session.getAttribute("favoris")}">
-				<g:form url="[resource:demandeVisiteMuseeInstance, action:'save']">
+				<g:form url="[resource:demandeVisiteInstance, action:'save']">
 					<fieldset class="form">
 						<g:render template="form" />
 					</fieldset>
@@ -61,8 +59,7 @@
 				<p>Vos demandes de vistes ont été bien envoyées et seront
 					traitées prochainement.</p>
 				<p>
-					Voici vos codes :
-					${code}
+					Voici votre code : ${code}
 				</p>
 			</div>
 		</g:else>
