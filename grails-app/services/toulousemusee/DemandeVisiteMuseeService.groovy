@@ -44,7 +44,7 @@ public class DemandeVisiteMuseeService {
 		if(demande){
 			return "CODE-${demande.id + 1}" ;
 		} else {
-			return "CODE-0"
+			return "CODE-1"
 		}
 	}
 }

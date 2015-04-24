@@ -16,7 +16,11 @@ class DemandeVisiteController {
     }
 
     def show(DemandeVisite demandeVisiteInstance) {
-        respond demandeVisiteInstance
+		def code = session.getAttribute("code")
+		if(code == demandeVisiteInstance.id)
+        	respond demandeVisiteInstance
+		else
+			return notFound()
     }
 
     def create() {
