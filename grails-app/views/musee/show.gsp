@@ -93,7 +93,7 @@
 				<li class="fieldcontain">
 					<span id="gestionnaire-label" class="property-label"><g:message code="musee.gestionnaire.label" default="Gestionnaire" /></span>
 					
-						<span class="property-value" aria-labelledby="gestionnaire-label"><g:link controller="gestionnaire" action="show" id="${museeInstance?.gestionnaire?.id}">${museeInstance?.gestionnaire?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="gestionnaire-label">${museeInstance?.gestionnaire?.encodeAsHTML()}</span>
 					
 				</li>
 				</g:if>
