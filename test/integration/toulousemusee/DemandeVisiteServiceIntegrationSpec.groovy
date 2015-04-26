@@ -6,13 +6,13 @@ import grails.test.mixin.*
 import spock.lang.*
 
 class DemandeVisiteServiceIntegrationSpec extends Specification {
-	
+
 	DemandeVisiteService demandeVisiteService
 
 	void "Test the save action"() {
 
 		given:"Un demande de visite"
-			DemandeVisite demande = new DemandeVisite(
+		DemandeVisite demande = new DemandeVisite(
 				code:"CODE-0",
 				dateDebutPeriode:new Date(),
 				dateFinPeriode:new Date() + 1,
@@ -20,31 +20,56 @@ class DemandeVisiteServiceIntegrationSpec extends Specification {
 				statut:"En cours de traitement")
 
 		and:"des ids de musées"
-			List<Long> musees = new ArrayList<Long>()
-			musees.add(1L)
-			musees.add(2L)
+		List<Long> musees = new ArrayList<Long>()
+		musees.add(1L)
+		musees.add(2L)
 		when:"The save action is executed"
-			List<DemandeVisiteMusee> demandes = demandeVisiteService.save(demande, musees)
-		
+		List<DemandeVisiteMusee> demandes = demandeVisiteService.save(demande, musees)
+
 		then:"A visit requests are created"
-			DemandeVisite.count() == 1
-			DemandeVisiteMusee.count() == 2
-			demandes.size() == 2
+		DemandeVisite.count() == 1
+		DemandeVisiteMusee.count() == 2
+		demandes.size() == 2
 	}
-	
+
 	void "Test the create"(){
+		given:
+		Date debut = new Date()
+		Date fin  = new Date() + 1
+		int nbPersonne = 4
+		when:
+		DemandeVisite demande = demandeVisiteService.createDemandeVisite(debut, fin, nbPersonne)
+		then:
+		demande
+		demande.code == "CODE-1"
+		demande.dateDebutPeriode == debut
+		demande.dateFinPeriode == fin
+		demande.nbPersonne == nbPersonne
+		demande.statut == "En cours de traitement"
+	}
+
+	void "Test get demande de visite"(){
 		given:
 			Date debut = new Date()
 			Date fin  = new Date() + 1
 			int nbPersonne = 4
-		when:
 			DemandeVisite demande = demandeVisiteService.createDemandeVisite(debut, fin, nbPersonne)
+			demande.save flush:true
+		when:
+			DemandeVisite demandeVisite = demandeVisiteService.getDemandeVisite(demande.code)
 		then:
-			demande
-			demande.code == "CODE-1"
-			demande.dateDebutPeriode == debut
-			demande.dateFinPeriode == fin
-			demande.nbPersonne == nbPersonne
-			demande.statut == "En cours de traitement"
+			demande == demandeVisite
+	}
+	
+	void "Test get next code"(){
+		given:
+			Date debut = new Date()
+			Date fin  = new Date() + 1
+			int nbPersonne = 4
+			DemandeVisite demande = demandeVisiteService.createDemandeVisite(debut, fin, nbPersonne)
+		when:"Aucune demande n'existe en base"
+			String code = demandeVisiteService.getNextCode()
+		then:
+			code == "CODE-1"
 	}
 }
