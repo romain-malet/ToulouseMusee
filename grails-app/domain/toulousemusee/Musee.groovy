@@ -1,5 +1,7 @@
 package toulousemusee
 
+import java.sql.Timestamp
+
 class Musee {
 
 	String nom
@@ -7,6 +9,7 @@ class Musee {
 	String telephone
 	String accesBus
 	String accesMetro
+    Timestamp version
 
 	Adresse adresse
 	Gestionnaire gestionnaire

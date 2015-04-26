@@ -56,15 +56,13 @@
 				<li class="fieldcontain"><span id="demandesVisitesMusees-label"
 					class="property-label"><g:message
 							code="demandeVisite.musees.label"
-							default="Musées" /></span> <g:each
-						in="${demandesVisitesMusees}" var="d">
-						<g:each in="${d.musee}" var="m">
+							default="Musées" /></span>
+						<g:each in="${demandesVisitesMusees.musee}" var="m">
 							<span class="property-value" aria-labelledby="Musee-label"><g:link
 									controller="Musee" action="show" id="${m.id}">
 									${m?.encodeAsHTML()}
-								</g:link></span>
-						</g:each>
-					</g:each></li>
+								</g:link><br/><br/></span>
+						</g:each></li>
 			<g:if test="${demandeVisiteInstance.statut == "Confirmée"}">
 				<li class="fieldcontain"><span id="dateDebutPeriode-label"
 					class="property-label"><g:message

@@ -78,23 +78,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${museeInstance?.ddeVisitMusee}">
-				<li class="fieldcontain">
-					<span id="ddeVisitMusee-label" class="property-label"><g:message code="musee.ddeVisitMusee.label" default="Dde Visit Musee" /></span>
-					
-						<g:each in="${museeInstance.ddeVisitMusee}" var="d">
-						<span class="property-value" aria-labelledby="ddeVisitMusee-label"><g:link controller="demandeVisiteMusee" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${museeInstance?.gestionnaire}">
 				<li class="fieldcontain">
 					<span id="gestionnaire-label" class="property-label"><g:message code="musee.gestionnaire.label" default="Gestionnaire" /></span>
-					
-						<span class="property-value" aria-labelledby="gestionnaire-label">${museeInstance?.gestionnaire?.encodeAsHTML()}</span>
-					
+				
+						<span class="property-value" aria-labelledby="gestionnaire-label"><g:fieldValue bean="${museeInstance}" field="gestionnaire"/></span>
 				</li>
 				</g:if>
 			
