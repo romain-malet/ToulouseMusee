@@ -13,7 +13,6 @@ public class DemandeVisiteService {
 	List save(DemandeVisite demandeVisite, List<Long> musees){
 		List demandes = new ArrayList<DemandeVisiteMusee>();
 		Date date = new Date()
-		Map codes = new HashMap<Musee, String>()
 		demandeVisite.save(flush:true)
 		for (long museeId : musees){
 			Musee musee = Musee.get(museeId)

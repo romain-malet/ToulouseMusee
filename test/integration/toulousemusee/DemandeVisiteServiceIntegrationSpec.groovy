@@ -40,7 +40,7 @@ class DemandeVisiteServiceIntegrationSpec extends Specification {
 		when:
 			DemandeVisite demande = demandeVisiteService.createDemandeVisite(debut, fin, nbPersonne)
 		then:
-			!demande
+			demande
 			demande.code == "CODE-1"
 			demande.dateDebutPeriode == debut
 			demande.dateFinPeriode == fin
