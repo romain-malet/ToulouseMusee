@@ -60,4 +60,13 @@ class MuseeSpec extends Specification {
 		"nom"  | "9h 18h"          | "05 47 82 32 15" | "Bus 63" | "A"        | null          | Mock(Gestionnaire)
 		"nom"  | "9h 18h"          | "05 47 82 32 15" | "Bus 63" | "A"        | Mock(Adresse) | null
 	}
+
+	void "test to string"(){
+		given:"Un musée"
+		Musee musee = new Musee(nom: "nom", horairesOUvertures: "horairesOuverture",
+		telephone: "0563447820", accesBus: "62", accesMetro: "A",
+		adresse: Mock(Adresse), gestionnaire: Mock(Gestionnaire))
+		expect:"toString retourne le code de le nom du gestionnaire"
+		musee.toString() == musee.nom
+	}
 }

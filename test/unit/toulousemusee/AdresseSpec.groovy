@@ -43,4 +43,12 @@ class AdresseSpec extends Specification {
 		12     | "Nom"  | 31000       | ""
 		12     | "Nom"  | 31000       | null
 	}
+	
+	void "test to string"(){
+		given:"Une adresse"
+			Adresse uneAdresse = new Adresse(numero: 12, rue: "rue", codePostale: 31000,
+                ville: "ville")
+		expect:"toString retourne bien les informations de l'adresse"
+			uneAdresse.toString() == "12 rue\n31000 ville"
+	}
 }

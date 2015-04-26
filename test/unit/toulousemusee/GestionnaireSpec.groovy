@@ -38,7 +38,13 @@ class GestionnaireSpec extends Specification {
         where:
         nom | _
         "" | _
-        '' | _
         null | _
     }
+	
+	void "test to string"(){
+		given:"Un gestionnaire"
+			Gestionnaire gestionnaire = new Gestionnaire(name: "nom")
+		expect:"toString retourne le code de le nom du gestionnaire"
+			gestionnaire.toString() == gestionnaire.name
+	}
 }

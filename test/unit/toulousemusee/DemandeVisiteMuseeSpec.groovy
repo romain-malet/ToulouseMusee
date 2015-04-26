@@ -38,4 +38,18 @@ class DemandeVisiteMuseeSpec extends Specification {
         Mock(Musee) | null                | new Date()
         null        | Mock(DemandeVisite) | new Date()
     }
+	
+	void "test to string"(){
+		given:"Une demande de visite musée"
+			DemandeVisite uneDemandeDeVisite = new DemandeVisite(code:"CODE-1",
+				dateDebutPeriode: new Date(),
+				dateFinPeriode: new Date() + 1,
+				nbPersonne: 4,
+				statut: "En cours de traitement")
+			DemandeVisiteMusee dvm = new DemandeVisiteMusee(musee:Mock(Musee),
+				demandeVisite:uneDemandeDeVisite,
+				dateDeamnde:new Date())
+		expect:"toString retourne le code de la demande"
+			dvm.toString() == "Code : ${uneDemandeDeVisite.code}"
+	}
 }
