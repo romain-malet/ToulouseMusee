@@ -63,10 +63,6 @@ class DemandeVisiteController {
 		respond demandes, view:'create', model:[code:code]
 	}
 
-	def edit(DemandeVisite demandeVisiteInstance) {
-		respond demandeVisiteInstance
-	}
-
 	@Transactional
 	def update(DemandeVisite demandeVisiteInstance) {
 		if (demandeVisiteInstance == null) {
@@ -90,28 +86,6 @@ class DemandeVisiteController {
 				redirect demandeVisiteInstance
 			}
 			'*'{ respond demandeVisiteInstance, [status: OK] }
-		}
-	}
-
-	@Transactional
-	def delete(DemandeVisite demandeVisiteInstance) {
-
-		if (demandeVisiteInstance == null) {
-			notFound()
-			return
-		}
-
-		demandeVisiteInstance.delete flush:true
-
-		request.withFormat {
-			form multipartForm {
-				flash.message = message(code: 'default.deleted.message', args: [
-					message(code: 'DemandeVisite.label', default: 'DemandeVisite'),
-					demandeVisiteInstance.id
-				])
-				redirect action:"index", method:"GET"
-			}
-			'*'{ render status: NO_CONTENT }
 		}
 	}
 
